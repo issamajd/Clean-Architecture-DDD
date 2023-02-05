@@ -3,6 +3,7 @@ using DDD.Accounts;
 using DDD.AppIdentity;
 using DDD.Customers;
 using DDD.EfCore;
+using DDD.Providers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -70,9 +71,13 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
-builder.Services.AddScoped<ICustomerAppService, CustomerAppService>();
 builder.Services.AddScoped<IAccountAppService, AccountAppService>();
+
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICustomerAppService, CustomerAppService>();
+
+builder.Services.AddScoped<IProviderRepository, ProviderRepository>();
+builder.Services.AddScoped<IProviderAppService, ProviderAppService >();
 
 var app = builder.Build();
 

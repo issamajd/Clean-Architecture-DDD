@@ -1,6 +1,4 @@
-using System.Security.Claims;
 using DDD.AppIdentity;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
@@ -64,7 +62,6 @@ public class CustomerAppService : ICustomerAppService
     public async Task<CustomerDto> ChangeCustomerAgeAsync(ChangeCustomerAgeDto changeCustomerAgeDto)
     {
         //TODO wrap accessing claims in a separate service
-        var userId = _httpContextAccessor.HttpContext.User.FindFirst("Id").Value;
         var customerId = _httpContextAccessor.HttpContext.User.FindFirst("CustomerId").Value;
         var customer = await _customerRepository.GetAsync(Guid.Parse(customerId));
         customer = await _customerRepository.ChangeAgeAsync(customer, changeCustomerAgeDto.Age);

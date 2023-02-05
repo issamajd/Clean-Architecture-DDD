@@ -10,7 +10,7 @@ public class Provider
     {
     }
 
-    internal Provider(Guid id, Guid userId, string? businessName = null)
+    public Provider(Guid id, Guid userId, string? businessName = null)
     {
         Id = id;
         UserId = userId;
