@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDD_project_2", "DDD_project_2\DDD_project_2.csproj", "{D5C9250A-5108-49F9-A1E1-5F591E5E4170}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "Host\Host.csproj", "{D5C9250A-5108-49F9-A1E1-5F591E5E4170}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Extensions", "Identity.Extensions\Identity.Extensions.csproj", "{AE8759F9-5602-436F-AA9D-73181C7395F8}"
 EndProject
