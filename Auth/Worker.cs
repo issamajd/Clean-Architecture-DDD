@@ -29,11 +29,17 @@ public class Worker : IHostedService
                 ClientId = "postman",
                 ClientSecret = "postman-secret",
                 DisplayName = "Postman",
+                RedirectUris = { new Uri("https://oauth.pstmn.io/v1/callback") },
                 Permissions =
                 {
                     OpenIddictConstants.Permissions.Endpoints.Token,
+                    OpenIddictConstants.Permissions.Endpoints.Authorization,
+                    
                     OpenIddictConstants.Permissions.GrantTypes.ClientCredentials,
+                    OpenIddictConstants.Permissions.GrantTypes.AuthorizationCode,
+                    OpenIddictConstants.Permissions.GrantTypes.RefreshToken,
 
+                    OpenIddictConstants.Permissions.ResponseTypes.Code,
                     OpenIddictConstants.Permissions.Prefixes.Scope + "api"
                 }
             }, cancellationToken);

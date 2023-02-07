@@ -1,5 +1,6 @@
 using DDD;
 using DDD.EfCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,16 +14,25 @@ builder.Services.AddDbContext<AuthDbContext>(options =>
     options.UseOpenIddict();
 });
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options => { options.LoginPath = "/account/login"; });
+
+
 builder.Services.AddOpenIddict()
     .AddCore(options => { options.UseEntityFrameworkCore().UseDbContext<AuthDbContext>(); })
     .AddServer(options =>
     {
-        options
-            .AllowClientCredentialsFlow();
-        options
-            .SetTokenEndpointUris("/connect/token");
+        options.AllowAuthorizationCodeFlow()
+            .AllowClientCredentialsFlow()
+            .RequireProofKeyForCodeExchange()
+            .AllowRefreshTokenFlow();
         
-        
+        options
+            .SetAuthorizationEndpointUris("/connect/authorize")
+            .SetTokenEndpointUris("/connect/token")
+            .SetUserinfoEndpointUris("/connect/userinfo");
+
+
         // Encryption and signing of tokens
         options
             .AddEphemeralEncryptionKey()
@@ -31,12 +41,13 @@ builder.Services.AddOpenIddict()
 
         // Register scopes (permissions)
         options.RegisterScopes("api");
-        
+
         // Register the ASP.NET Core host and configure the ASP.NET Core-specific options.
         options
             .UseAspNetCore()
-            .EnableTokenEndpointPassthrough();   
-        
+            .EnableAuthorizationEndpointPassthrough()
+            .EnableTokenEndpointPassthrough()
+            .EnableUserinfoEndpointPassthrough();
     })
     .AddValidation(options =>
     {
