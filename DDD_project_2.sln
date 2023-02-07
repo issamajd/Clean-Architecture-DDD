@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Contracts", "Application.Contracts\Application.Contracts.csproj", "{F931E8E9-9D15-434A-98B0-75B15B1BA672}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth", "Auth\Auth.csproj", "{120B100C-70A3-4305-BEAE-E108EC2A2C19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{F931E8E9-9D15-434A-98B0-75B15B1BA672}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F931E8E9-9D15-434A-98B0-75B15B1BA672}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F931E8E9-9D15-434A-98B0-75B15B1BA672}.Release|Any CPU.Build.0 = Release|Any CPU
+		{120B100C-70A3-4305-BEAE-E108EC2A2C19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{120B100C-70A3-4305-BEAE-E108EC2A2C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{120B100C-70A3-4305-BEAE-E108EC2A2C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{120B100C-70A3-4305-BEAE-E108EC2A2C19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

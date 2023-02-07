@@ -10,6 +10,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Application.Contracts\Application.Contracts.csproj" />
       <ProjectReference Include="..\Application\Application.csproj" />
+      <ProjectReference Include="..\Auth\Auth.csproj" />
       <ProjectReference Include="..\EfCore\EfCore.csproj" />
     </ItemGroup>
 

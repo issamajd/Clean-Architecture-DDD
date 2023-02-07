@@ -14,8 +14,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("Default");
 
+
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySQL(connectionString ?? throw new InvalidOperationException("Unable to connect to DB")));
+{
+    options.UseMySQL(connectionString ?? throw new InvalidOperationException("Unable to connect to DB"));
+    
+    //Todo add services of another module
+    options.UseOpenIddict();
+});
 builder.Services.AddIdentity<AppIdentityUser, IdentityRole<Guid>>().AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddAuthentication(options =>
@@ -77,7 +84,7 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerAppService, CustomerAppService>();
 
 builder.Services.AddScoped<IProviderRepository, ProviderRepository>();
-builder.Services.AddScoped<IProviderAppService, ProviderAppService >();
+builder.Services.AddScoped<IProviderAppService, ProviderAppService>();
 
 var app = builder.Build();
 
