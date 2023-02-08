@@ -33,10 +33,10 @@ public static class AppDbContextExtensions
             
         #region User Identity seed data
        
-        var hasher = new PasswordHasher<IdentityUser<Guid>>();
-        var admin = new IdentityUser<Guid> {Id = Guid.NewGuid(),  Email = "providertest1@gmail.co", UserName = "admin"};
-        admin.PasswordHash = hasher.HashPassword(admin, "test");
-        builder.Entity<IdentityUser>().HasData(admin);
+        // var hasher = new PasswordHasher<IdentityUser<Guid>>();
+        // var admin = new IdentityUser<Guid> {Id = Guid.NewGuid(),  Email = "providertest1@gmail.co", UserName = "admin"};
+        // admin.PasswordHash = hasher.HashPassword(admin, "test");
+        // builder.Entity<IdentityUser<Guid>>().HasData(admin);
         
         #endregion
     }

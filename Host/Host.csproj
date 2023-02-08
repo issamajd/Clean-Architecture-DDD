@@ -11,7 +11,7 @@
       <ProjectReference Include="..\Application.Contracts\Application.Contracts.csproj" />
       <ProjectReference Include="..\Application\Application.csproj" />
       <ProjectReference Include="..\Auth\Auth.csproj" />
-      <ProjectReference Include="..\Infrastructure.EfCore.MySql\Infrastructure.EfCore.MySql.csproj" />
+      <ProjectReference Include="..\Infrastructure.EfCore\Infrastructure.EfCore.csproj" />
     </ItemGroup>
 
     <ItemGroup>

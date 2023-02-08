@@ -3,14 +3,14 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<MySqlAppDbContext>();
+builder.Services.AddDbContext<AppDbContext>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options => { options.LoginPath = "/account/login"; });
 
 
 builder.Services.AddOpenIddict()
-    .AddCore(options => { options.UseEntityFrameworkCore().UseDbContext<MySqlAppDbContext>(); })
+    .AddCore(options => { options.UseEntityFrameworkCore().UseDbContext<AppDbContext>(); })
     .AddServer(options =>
     {
         options.AllowAuthorizationCodeFlow()

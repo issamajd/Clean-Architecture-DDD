@@ -4,6 +4,7 @@ namespace DDD.AppUsers;
 
 public abstract class AppUser : IdentityUser<Guid>
 {
+    public string? SocialNumber { get; set; }
     protected AppUser()
     {
     }
