@@ -1,4 +1,3 @@
-using DDD.EfCore;
 using OpenIddict.Abstractions;
 
 namespace DDD;
@@ -17,7 +16,7 @@ public class Worker : IHostedService
     {
         using var scope = _serviceProvider.CreateScope();
 
-        var context = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
+        var context = scope.ServiceProvider.GetRequiredService<MySqlAppDbContext>();
         await context.Database.EnsureCreatedAsync(cancellationToken);
 
         var manager = scope.ServiceProvider.GetRequiredService<IOpenIddictApplicationManager>();
@@ -34,7 +33,7 @@ public class Worker : IHostedService
                 {
                     OpenIddictConstants.Permissions.Endpoints.Token,
                     OpenIddictConstants.Permissions.Endpoints.Authorization,
-                    
+
                     OpenIddictConstants.Permissions.GrantTypes.ClientCredentials,
                     OpenIddictConstants.Permissions.GrantTypes.AuthorizationCode,
                     OpenIddictConstants.Permissions.GrantTypes.RefreshToken,

@@ -1,7 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using DDD.AppIdentity;
+using DDD.AppUsers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -10,11 +10,11 @@ namespace DDD.Accounts;
 
 public class AccountAppService : IAccountAppService
 {
-    private readonly SignInManager<AppIdentityUser> _signInManager;
-    private readonly UserManager<AppIdentityUser> _userManager;
+    private readonly SignInManager<AppUser> _signInManager;
+    private readonly UserManager<AppUser> _userManager;
     private readonly IConfiguration _configuration;
 
-    public AccountAppService(SignInManager<AppIdentityUser> signInManager, UserManager<AppIdentityUser> userManager,
+    public AccountAppService(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager,
         IConfiguration configuration)
     {
         _signInManager = signInManager;
@@ -40,8 +40,8 @@ public class AccountAppService : IAccountAppService
                         //TODO change hardcoded claims to consts (Domain.Shared)
                         new Claim("Id", Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                        new Claim("CustomerId", user.CustomerId?.ToString() ?? ""),
-                        new Claim("ProviderId", user.ProviderId?.ToString() ?? ""),
+                        // new Claim("CustomerId", user.CustomerId?.ToString() ?? ""),
+                        // new Claim("ProviderId", user.ProviderId?.ToString() ?? ""),
                         new Claim(JwtRegisteredClaimNames.Email, user.UserName),
                         new Claim(JwtRegisteredClaimNames.Jti,
                             Guid.NewGuid().ToString())

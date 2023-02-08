@@ -1,5 +1,3 @@
-using DDD.EfCore;
-
 namespace DDD.Customers;
 
 public class CustomerRepository : ICustomerRepository

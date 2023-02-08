@@ -1,32 +1,23 @@
 using DDD;
-using DDD.EfCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<AuthDbContext>(options =>
-{
-    options.UseMySQL(builder.Configuration.GetConnectionString("Default") ??
-                     throw new InvalidOperationException("Unable to connect to database"));
-
-    // register entities
-    options.UseOpenIddict();
-});
+builder.Services.AddDbContext<MySqlAppDbContext>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options => { options.LoginPath = "/account/login"; });
 
 
 builder.Services.AddOpenIddict()
-    .AddCore(options => { options.UseEntityFrameworkCore().UseDbContext<AuthDbContext>(); })
+    .AddCore(options => { options.UseEntityFrameworkCore().UseDbContext<MySqlAppDbContext>(); })
     .AddServer(options =>
     {
         options.AllowAuthorizationCodeFlow()
             .AllowClientCredentialsFlow()
             .RequireProofKeyForCodeExchange()
             .AllowRefreshTokenFlow();
-        
+
         options
             .SetAuthorizationEndpointUris("/connect/authorize")
             .SetTokenEndpointUris("/connect/token")

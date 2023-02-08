@@ -1,7 +1,4 @@
 using DDD.Accounts;
-using DDD.AppIdentity;
-using DDD.Customers;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DDD.Controllers;
@@ -16,7 +13,6 @@ public class AccountController : Controller
         _accountAppService = accountAppService;
     }
 
-   
 
     [Route("sign-in")]
     [HttpPost]
@@ -24,5 +20,4 @@ public class AccountController : Controller
     {
         return await _accountAppService.SignIn(signInDto);
     }
-    
 }

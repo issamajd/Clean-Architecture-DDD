@@ -1,29 +1,20 @@
 using System.Text;
+using DDD;
 using DDD.Accounts;
-using DDD.AppIdentity;
+using DDD.AppUsers;
 using DDD.Customers;
-using DDD.EfCore;
 using DDD.Providers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("Default");
 
+builder.Services.AddDbContext<MySqlAppDbContext>();
 
-
-builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    options.UseMySQL(connectionString ?? throw new InvalidOperationException("Unable to connect to DB"));
-    
-    //Todo add services of another module
-    options.UseOpenIddict();
-});
-builder.Services.AddIdentity<AppIdentityUser, IdentityRole<Guid>>().AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>().AddEntityFrameworkStores<MySqlAppDbContext>();
 
 builder.Services.AddAuthentication(options =>
 {

@@ -2,9 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "Host\Host.csproj", "{D5C9250A-5108-49F9-A1E1-5F591E5E4170}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Extensions", "Identity.Extensions\Identity.Extensions.csproj", "{AE8759F9-5602-436F-AA9D-73181C7395F8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfCore", "EfCore\EfCore.csproj", "{BC07F466-D6C4-4D3A-A4AA-35DEA57F5615}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EfCore", "Infrastructure.EfCore\Infrastructure.EfCore.csproj", "{BC07F466-D6C4-4D3A-A4AA-35DEA57F5615}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{26F55605-FB0E-4533-B18F-668E7C78C6B3}"
 EndProject
@@ -13,6 +11,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Contracts", "Application.Contracts\Application.Contracts.csproj", "{F931E8E9-9D15-434A-98B0-75B15B1BA672}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth", "Auth\Auth.csproj", "{120B100C-70A3-4305-BEAE-E108EC2A2C19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EfCore.MySql", "Infrastructure.EfCore.MySql\Infrastructure.EfCore.MySql.csproj", "{1A00E68A-AF49-4147-A1ED-02A085CE42FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,10 +24,6 @@ Global
 		{D5C9250A-5108-49F9-A1E1-5F591E5E4170}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5C9250A-5108-49F9-A1E1-5F591E5E4170}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5C9250A-5108-49F9-A1E1-5F591E5E4170}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AE8759F9-5602-436F-AA9D-73181C7395F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AE8759F9-5602-436F-AA9D-73181C7395F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AE8759F9-5602-436F-AA9D-73181C7395F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AE8759F9-5602-436F-AA9D-73181C7395F8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BC07F466-D6C4-4D3A-A4AA-35DEA57F5615}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BC07F466-D6C4-4D3A-A4AA-35DEA57F5615}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC07F466-D6C4-4D3A-A4AA-35DEA57F5615}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -48,5 +44,9 @@ Global
 		{120B100C-70A3-4305-BEAE-E108EC2A2C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{120B100C-70A3-4305-BEAE-E108EC2A2C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{120B100C-70A3-4305-BEAE-E108EC2A2C19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A00E68A-AF49-4147-A1ED-02A085CE42FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A00E68A-AF49-4147-A1ED-02A085CE42FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A00E68A-AF49-4147-A1ED-02A085CE42FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A00E68A-AF49-4147-A1ED-02A085CE42FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

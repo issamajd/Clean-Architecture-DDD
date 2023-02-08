@@ -1,19 +1,17 @@
+using DDD.AppUsers;
+
 namespace DDD.Providers;
 
-public class Provider
+public sealed class Provider : AppUser
 {
-    public Guid Id { get; }
-    public Guid UserId { get; }
     public string? BusinessName { get; set; }
 
     private Provider()
     {
     }
 
-    public Provider(Guid id, Guid userId, string? businessName = null)
+    public Provider(Guid id, string email, string username, string? businessName = null) : base(id, email, username)
     {
-        Id = id;
-        UserId = userId;
         BusinessName = businessName;
     }
 }

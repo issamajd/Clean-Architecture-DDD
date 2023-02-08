@@ -1,19 +1,18 @@
+using DDD.AppUsers;
+
 namespace DDD.Customers;
 
-public class Customer 
+public sealed class Customer : AppUser
 {
-    public Guid Id { get; }
-    public Guid UserId { get; }
     public int? Age { get; set; }
 
     private Customer()
     {
     }
 
-    public Customer(Guid id, Guid userId, int? age = null)
+    public Customer(Guid id, string email, string username, int? age = null) : base(id, email, username)
     {
-        Id = id;
-        UserId = userId;
         Age = age;
     }
+    
 }

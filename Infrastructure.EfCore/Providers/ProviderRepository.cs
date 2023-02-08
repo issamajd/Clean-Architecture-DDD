@@ -1,5 +1,3 @@
-using DDD.EfCore;
-
 namespace DDD.Providers;
 
 public class ProviderRepository : IProviderRepository
