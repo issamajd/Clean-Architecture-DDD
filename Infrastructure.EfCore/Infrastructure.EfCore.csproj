@@ -17,6 +17,7 @@
       <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
       <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.0" />
       <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="4.0.0" />
+      <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.25" />
     </ItemGroup>
 
     <ItemGroup>
