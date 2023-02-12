@@ -6,7 +6,6 @@ public abstract class Entity<TKey> : Entity
 
     protected Entity()
     {
-
     }
 
     protected Entity(TKey id)

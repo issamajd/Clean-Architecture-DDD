@@ -9,7 +9,7 @@ public class EfCoreRepository<TEntity> : IRepository<TEntity> where TEntity : En
 {
     private readonly AppDbContext _dbContext;
 
-    public EfCoreRepository(AppDbContext dbContext)
+    protected EfCoreRepository(AppDbContext dbContext)
     {
         _dbContext = dbContext;
     }
@@ -120,8 +120,7 @@ public class EfCoreRepository<TEntity> : IRepository<TEntity> where TEntity : En
         return (await _dbContext.Set<TEntity>().AddAsync(entity, cancellationToken)).Entity;
     }
 
-    public TEntity UpdateAsync(TEntity entity,
-        CancellationToken cancellationToken = default)
+    public TEntity Update(TEntity entity)
     {
         _dbContext.Set<TEntity>().Attach(entity);
         return _dbContext.Update(entity).Entity;

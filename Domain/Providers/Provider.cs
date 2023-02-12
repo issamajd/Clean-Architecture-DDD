@@ -1,17 +1,18 @@
-using DDD.AppUsers;
+using System.ComponentModel.DataAnnotations;
+using DDD.SeedWork;
 
 namespace DDD.Providers;
 
-public sealed class Provider : AppUser
+public class Provider : AggregateRoot<Guid>
 {
+    [Required] 
+    public Guid UserId { get; }
     public string? BusinessName { get; set; }
 
-    private Provider()
+    public Provider(Guid id, Guid userId, string? businessName = null)
     {
-    }
-
-    public Provider(Guid id, string email, string username, string? businessName = null) : base(id, email, username)
-    {
+        Id = id;
+        UserId = userId;
         BusinessName = businessName;
     }
 }

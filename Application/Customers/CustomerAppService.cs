@@ -1,18 +1,19 @@
 using DDD.AppUsers;
+using DDD.SeedWork;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
 namespace DDD.Customers;
 
-public class CustomerAppService : ICustomerAppService
+public class CustomerAppService : ApplicationService, ICustomerAppService
 {
     private readonly ICustomerRepository _customerRepository;
     private readonly UserManager<AppUser> _userManager;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public CustomerAppService(ICustomerRepository customerRepository,
+    public CustomerAppService(IUnitOfWork unitOfWork, ICustomerRepository customerRepository,
         UserManager<AppUser> userManager,
-        IHttpContextAccessor httpContextAccessor)
+        IHttpContextAccessor httpContextAccessor) : base(unitOfWork)
     {
         _customerRepository = customerRepository;
         _userManager = userManager;
@@ -21,58 +22,49 @@ public class CustomerAppService : ICustomerAppService
 
     public async Task<CustomerDto> GetAsync(Guid id)
     {
-        var customer = await _customerRepository.GetAsync(id);
+        var customer = await _customerRepository.GetAsync(customer => customer.Id == id);
         return new CustomerDto
         {
-            Age = customer.Age, Id = customer.Id
-            // UserId = customer.UserId
+            Id = customer.Id,
+            Age = customer.Age,
+            UserId = customer.UserId
         };
     }
 
     public async Task<CustomerDto> CreateAsync(RegisterCustomerAccountDto registerCustomerAccountDto)
     {
-        throw new NotImplementedException();
-        // var user = new AppUser()
-        // {
-        //     UserName = registerCustomerAccountDto.Username,
-        // };
-        // var result = await _userManager.CreateAsync(user, registerCustomerAccountDto.Password);
-        // if (result.Succeeded)
-        // {
-        //     var customer = new Customer(Guid.NewGuid(), registerCustomerAccountDto.Age);
-        //     customer = await _customerRepository.CreateAsync(customer);
-        //
-        //     if (customer != null)
-        //     {
-        //         // user.CustomerId = customer.Id;
-        //         //TODO check if this operation is successful
-        //         await _userManager.UpdateAsync(user);
-        //         return new CustomerDto()
-        //         {
-        //             Id = customer.Id,
-        //             // UserId = customer.UserId,
-        //             Age = customer.Age
-        //         };
-        //     }
-        //
-        //     throw new InvalidOperationException("Unable to create customer");
-        // }
-        //
-        // throw new InvalidOperationException($"Unable to create a user: {result.Errors.FirstOrDefault()?.Description}");
+        var user = new AppUser(id: Guid.NewGuid(), username: registerCustomerAccountDto.Username);
+
+        var result = await _userManager.CreateAsync(user: user,password: registerCustomerAccountDto.Password);
+        if (!result.Succeeded)
+            throw new InvalidOperationException(
+                $"Unable to create a user: {result.Errors.FirstOrDefault()?.Description}");
+
+        var customer = new Customer(id: Guid.NewGuid(), userId: user.Id, age: registerCustomerAccountDto.Age);
+        customer = await _customerRepository.InsertAsync(customer);
+        await UnitOfWork.SaveChangesAsync();
+        return new CustomerDto
+        {
+            Id = customer.Id,
+            UserId = customer.UserId,
+            Age = customer.Age
+        };
     }
 
     public async Task<CustomerDto> ChangeCustomerAgeAsync(ChangeCustomerAgeDto changeCustomerAgeDto)
     {
-        throw new NotImplementedException();
-
         //TODO wrap accessing claims in a separate service
-        var customerId = _httpContextAccessor.HttpContext.User.FindFirst("CustomerId").Value;
-        var customer = await _customerRepository.GetAsync(Guid.Parse(customerId));
-        customer = await _customerRepository.ChangeAgeAsync(customer, changeCustomerAgeDto.Age);
+        var customerId = _httpContextAccessor.HttpContext.User.FindFirst("CustomerId")?.Value;
+        var customer = await _customerRepository.GetAsync(customer => customerId != null &&
+                                                                      customer.Id == Guid.Parse(customerId));
+        customer.Age = changeCustomerAgeDto.Age;
+        customer = _customerRepository.Update(customer);
+        await UnitOfWork.SaveChangesAsync();
+
         return new CustomerDto
         {
             Id = customer.Id,
-            // UserId = customer.UserId,
+            UserId = customer.UserId,
             Age = customer.Age
         };
     }

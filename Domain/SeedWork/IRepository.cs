@@ -96,7 +96,6 @@ public interface IRepository<TEntity> where TEntity : Entity
     /// <summary>
     /// Updates an existing entity.
     /// </summary>
-    /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
     /// <param name="entity">Entity</param>
-    TEntity UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
+    TEntity Update(TEntity entity);
 }

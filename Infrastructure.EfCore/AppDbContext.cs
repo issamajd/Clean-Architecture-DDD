@@ -18,10 +18,9 @@ public class AppDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
     public AppDbContext(DbContextOptions options) : base(options) { }
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.Ignore<AppUser>();
-        // builder.Entity<AppUser>().UseTpcMappingStrategy();
         base.OnModelCreating(builder);
         builder.UseOpenIddict();
+        builder.ConfigureAppDb();
         builder.SeedUsersData();
     }
 

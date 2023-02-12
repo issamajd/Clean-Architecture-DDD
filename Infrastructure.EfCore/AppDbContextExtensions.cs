@@ -9,6 +9,7 @@ public static class AppDbContextExtensions
 {
     internal static void SeedUsersData(this ModelBuilder builder)
     {
+        /*
         #region Customer seed data
         var cusHasher = new PasswordHasher<Customer>();
         var cus1 = new Customer(Guid.NewGuid(), "customertest1@gmail.co", "test1", 19);
@@ -18,9 +19,9 @@ public static class AppDbContextExtensions
         builder.Entity<Customer>().HasData(cus1, cus2);
         
         #endregion
-
+        
         #region Provider seed data
-       
+        
         var provHasher = new PasswordHasher<Provider>();
         var prov1 = new Provider(Guid.NewGuid(), "providertest1@gmail.co", "test1", "Pros");
         prov1.PasswordHash = provHasher.HashPassword(prov1, "test");
@@ -33,11 +34,25 @@ public static class AppDbContextExtensions
             
         #region User Identity seed data
        
-        // var hasher = new PasswordHasher<IdentityUser<Guid>>();
-        // var admin = new IdentityUser<Guid> {Id = Guid.NewGuid(),  Email = "providertest1@gmail.co", UserName = "admin"};
-        // admin.PasswordHash = hasher.HashPassword(admin, "test");
-        // builder.Entity<IdentityUser<Guid>>().HasData(admin);
+        var hasher = new PasswordHasher<IdentityUser<Guid>>();
+        var admin = new IdentityUser<Guid> {Id = Guid.NewGuid(),  Email = "providertest1@gmail.co", UserName = "admin"};
+        admin.PasswordHash = hasher.HashPassword(admin, "test");
+        builder.Entity<IdentityUser<Guid>>().HasData(admin);
         
         #endregion
+        */
+    }
+    public static void ConfigureAppDb(this ModelBuilder builder)
+    {
+        builder.Entity<Provider>(b =>
+        {
+            b.HasKey(x => x.Id);
+            b.HasIndex(x => x.UserId);
+        });
+        builder.Entity<Customer>(b =>
+        {
+            b.HasKey(x => x.Id);
+            b.HasIndex(x => x.UserId);
+        });
     }
 }

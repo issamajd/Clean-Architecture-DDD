@@ -1,18 +1,19 @@
-using DDD.AppUsers;
+using System.ComponentModel.DataAnnotations;
+using DDD.SeedWork;
 
 namespace DDD.Customers;
 
-public sealed class Customer : AppUser
+public class Customer : AggregateRoot<Guid>
 {
     public int? Age { get; set; }
 
-    private Customer()
-    {
-    }
+    [Required]
+    public Guid UserId { get; }
 
-    public Customer(Guid id, string email, string username, int? age = null) : base(id, email, username)
+    public Customer(Guid id, Guid userId, int? age = null)
     {
+        Id = id;
         Age = age;
+        UserId = userId;
     }
-    
 }
