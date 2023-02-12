@@ -4,6 +4,7 @@ using DDD.Accounts;
 using DDD.AppUsers;
 using DDD.Customers;
 using DDD.Providers;
+using DDD.SeedWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -13,7 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddDbContext<AppDbContext>();
-builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>().AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>()
+    .AddUserStore<AppUserStore>()
+    .AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -67,6 +70,9 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
+
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<IAccountAppService, AccountAppService>();
 
