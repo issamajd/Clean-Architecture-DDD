@@ -1,27 +1,38 @@
 using DDD;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using OpenIddict.Abstractions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options => { options.LoginPath = "/account/login"; });
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, 
+        options => { options.LoginPath = "/account/login"; });
 
 
 builder.Services.AddOpenIddict()
     .AddCore(options => { options.UseEntityFrameworkCore().UseDbContext<AppDbContext>(); })
     .AddServer(options =>
     {
-        options.AllowAuthorizationCodeFlow()
+        options
+            .AllowAuthorizationCodeFlow()
             .AllowClientCredentialsFlow()
             .RequireProofKeyForCodeExchange()
+            .AllowHybridFlow()
+            .AllowImplicitFlow()
+            .AllowDeviceCodeFlow()
             .AllowRefreshTokenFlow();
 
         options
-            .SetAuthorizationEndpointUris("/connect/authorize")
+            .SetAuthorizationEndpointUris("/connect/authorize", "connect/authorize/callback")
             .SetTokenEndpointUris("/connect/token")
-            .SetUserinfoEndpointUris("/connect/userinfo");
+            .SetUserinfoEndpointUris("/connect/userinfo")
+            .SetDeviceEndpointUris("device")
+            .SetIntrospectionEndpointUris("connect/introspect")
+            .SetLogoutEndpointUris("connect/logout")
+            .SetRevocationEndpointUris("connect/revocat")
+            .SetVerificationEndpointUris("connect/verify");
 
 
         // Encryption and signing of tokens
@@ -30,15 +41,30 @@ builder.Services.AddOpenIddict()
             .AddEphemeralSigningKey()
             .DisableAccessTokenEncryption();
 
-        // Register scopes (permissions)
-        options.RegisterScopes("api");
-
+        options.RegisterScopes(
+            OpenIddictConstants.Scopes.OpenId,
+            OpenIddictConstants.Scopes.Email,
+            OpenIddictConstants.Scopes.Profile,
+            OpenIddictConstants.Scopes.Phone,
+            OpenIddictConstants.Scopes.Roles,
+            OpenIddictConstants.Scopes.Address,
+            OpenIddictConstants.Scopes.OfflineAccess
+        );
+        
         // Register the ASP.NET Core host and configure the ASP.NET Core-specific options.
         options
             .UseAspNetCore()
             .EnableAuthorizationEndpointPassthrough()
             .EnableTokenEndpointPassthrough()
-            .EnableUserinfoEndpointPassthrough();
+            .EnableUserinfoEndpointPassthrough()
+            .EnableLogoutEndpointPassthrough()
+            .EnableVerificationEndpointPassthrough()
+            .EnableStatusCodePagesIntegration();
+        
+        //TODO check if dev environment by using pre-configuration
+        options
+            .AddDevelopmentEncryptionCertificate()
+            .AddDevelopmentSigningCertificate();
     })
     .AddValidation(options =>
     {
