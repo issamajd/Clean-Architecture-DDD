@@ -1,15 +1,33 @@
 using DDD;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using DDD.AppUsers;
+using DDD.Customers;
+using DDD.Providers;
+using Microsoft.AspNetCore.Identity;
 using OpenIddict.Abstractions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>();
+builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>()
+    .AddUserStore<AppUserStore>()
+    .AddEntityFrameworkStores<AppDbContext>();
+    
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IProviderRepository, ProviderRepository>();
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, 
-        options => { options.LoginPath = "/account/login"; });
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy  =>
+        {
+            policy.WithOrigins("https://localhost:7206",
+                    "http://localhost:5220")
+                .WithMethods("POST", "GET", "OPTIONS")
+                .WithHeaders("Authorization", "Content-Type", "Accept", "Origin", "x-requested-with")
 
+                .SetIsOriginAllowedToAllowWildcardSubdomains();
+        });
+});
 
 builder.Services.AddOpenIddict()
     .AddCore(options => { options.UseEntityFrameworkCore().UseDbContext<AppDbContext>(); })
@@ -24,6 +42,7 @@ builder.Services.AddOpenIddict()
             .AllowDeviceCodeFlow()
             .AllowRefreshTokenFlow();
 
+        
         options
             .SetAuthorizationEndpointUris("/connect/authorize", "connect/authorize/callback")
             .SetTokenEndpointUris("/connect/token")
@@ -37,10 +56,10 @@ builder.Services.AddOpenIddict()
 
         // Encryption and signing of tokens
         options
-            .AddEphemeralEncryptionKey()
-            .AddEphemeralSigningKey()
-            .DisableAccessTokenEncryption();
-
+        //     .AddEphemeralEncryptionKey()
+        //     .AddEphemeralSigningKey()
+        .DisableAccessTokenEncryption();
+        
         options.RegisterScopes(
             OpenIddictConstants.Scopes.OpenId,
             OpenIddictConstants.Scopes.Email,
@@ -48,7 +67,8 @@ builder.Services.AddOpenIddict()
             OpenIddictConstants.Scopes.Phone,
             OpenIddictConstants.Scopes.Roles,
             OpenIddictConstants.Scopes.Address,
-            OpenIddictConstants.Scopes.OfflineAccess
+            OpenIddictConstants.Scopes.OfflineAccess,
+            "identity"
         );
         
         // Register the ASP.NET Core host and configure the ASP.NET Core-specific options.
@@ -68,6 +88,7 @@ builder.Services.AddOpenIddict()
     })
     .AddValidation(options =>
     {
+        options.AddAudiences("IdentityServer");
         // Import the configuration from the local OpenIddict server instance.
         options.UseLocalServer();
 
@@ -87,6 +108,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 app.UseRouting();
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 

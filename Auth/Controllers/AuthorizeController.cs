@@ -81,7 +81,6 @@ public class AuthorizeController : OpenIddictBaseController
                 var claimsPrincipal = await CreateClaimsPrincipalWithClaims(user);
                 claimsPrincipal =
                     await AddAuthorizationToIdentity(claimsPrincipal, request, user, applicationId, authorizations);
-                claimsPrincipal.SetAudiences("AppIdentity");
                 claimsPrincipal.SetDestinations(GetDestinations);
                 return SignIn(claimsPrincipal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
 
@@ -149,9 +148,8 @@ public class AuthorizeController : OpenIddictBaseController
         var claimsPrincipal = await CreateClaimsPrincipalWithClaims(user);
         claimsPrincipal =
             await AddAuthorizationToIdentity(claimsPrincipal, request, user, applicationId, authorizations);
-        claimsPrincipal.SetAudiences("AppIdentity");
-        claimsPrincipal.SetDestinations(GetDestinations);
 
+        claimsPrincipal.SetDestinations(GetDestinations);
         return SignIn(claimsPrincipal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
     }
 }

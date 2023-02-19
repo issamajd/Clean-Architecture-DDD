@@ -13,6 +13,7 @@ using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace DDD.Controllers;
 
+[ApiExplorerSettings(IgnoreApi = true)]
 public abstract class OpenIddictBaseController : Controller
 {
     protected IOpenIddictApplicationManager ApplicationManager =>
@@ -53,9 +54,9 @@ public abstract class OpenIddictBaseController : Controller
         
         //TODO use Domain.Shared const values
         if (customer != null)
-            claimsPrincipal.SetClaim("CustomerId", customer.Id.ToString());
+            claimsPrincipal.SetClaim("customer_id", customer.Id.ToString());
         if (provider != null)
-            claimsPrincipal.SetClaim("ProviderId", provider.Id.ToString());
+            claimsPrincipal.SetClaim("provider_id", provider.Id.ToString());
         return claimsPrincipal;
     }
 

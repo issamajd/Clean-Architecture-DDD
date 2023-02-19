@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DDD.Controllers;
 
+[ApiExplorerSettings(IgnoreApi = true)]
 public class AccountController : Controller
 {
     private readonly SignInManager<AppUser> _signInManager;

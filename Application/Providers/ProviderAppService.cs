@@ -56,7 +56,7 @@ public class ProviderAppService : ApplicationService, IProviderAppService
     public async Task<ProviderDto> ChangeProviderBusinessNameAsync(
         ChangeProviderBusinessNameDto changeProviderBusinessNameDto)
     {
-        var providerId = _httpContextAccessor.HttpContext.User.FindFirst("ProviderId")?.Value;
+        var providerId = _httpContextAccessor.HttpContext.User.FindFirst("provider_id")?.Value;
         var provider = await _providerRepository.GetAsync(provider => providerId != null
                                                                       && provider.Id == Guid.Parse(providerId));
         provider.BusinessName = changeProviderBusinessNameDto.BusinessName; 

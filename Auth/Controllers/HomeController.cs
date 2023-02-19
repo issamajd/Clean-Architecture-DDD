@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DDD.Controllers;
 
+[ApiExplorerSettings(IgnoreApi = true)]
 public class HomeController : Controller
 {
     // GET

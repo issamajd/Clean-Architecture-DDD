@@ -1,13 +1,10 @@
-using System.Text;
 using DDD;
-using DDD.Accounts;
 using DDD.AppUsers;
 using DDD.Customers;
 using DDD.Providers;
 using DDD.SeedWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,18 +22,11 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(o =>
 {
-    o.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey
-            (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = false,
-        ValidateIssuerSigningKey = true
-    };
+    o.Authority = builder.Configuration["AuthServer:Authority"];
+    o.RequireHttpsMetadata = Convert.ToBoolean(builder.Configuration["AuthServer:RequireHttpsMetadata"]);
+    o.Audience = "IdentityService";
 });
+
 builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
@@ -46,14 +36,30 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
 {
     option.SwaggerDoc("v1", new OpenApiInfo() { Title = "Demo API", Version = "v1" });
-    option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+
+    var authorizationUrl = new Uri($"{builder.Configuration["AuthServer:Authority"]}/connect/authorize");
+    var tokenUrl = new Uri($"{builder.Configuration["AuthServer:Authority"]}/connect/token");
+
+    option.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
         Description = "Please enter a valid token",
         Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        BearerFormat = "JWT",
-        Scheme = "Bearer"
+        Type = SecuritySchemeType.OAuth2,
+        
+        Flows = new OpenApiOAuthFlows
+        {
+          AuthorizationCode  = new OpenApiOAuthFlow
+          {
+              AuthorizationUrl = authorizationUrl,
+              TokenUrl = tokenUrl,
+              Scopes = new Dictionary<string, string>
+              {
+                  {"identity", ""},   
+                  {"openid", ""},   
+              }
+          }
+        },
     });
     option.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
@@ -63,18 +69,17 @@ builder.Services.AddSwaggerGen(option =>
                 Reference = new OpenApiReference
                 {
                     Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
+                    Id = "oauth2"
                 }
             },
             new string[] { }
         }
     });
+
 });
 
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-builder.Services.AddScoped<IAccountAppService, AccountAppService>();
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerAppService, CustomerAppService>();
@@ -87,7 +92,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(setup =>
+    {
+        setup.OAuthClientId(builder.Configuration["AuthServer:SwaggerClientId"]);
+        setup.OAuthUsePkce();
+    });
 }
 
 app.UseStaticFiles();

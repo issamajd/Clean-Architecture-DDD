@@ -54,7 +54,7 @@ public class CustomerAppService : ApplicationService, ICustomerAppService
     public async Task<CustomerDto> ChangeCustomerAgeAsync(ChangeCustomerAgeDto changeCustomerAgeDto)
     {
         //TODO wrap accessing claims in a separate service
-        var customerId = _httpContextAccessor.HttpContext.User.FindFirst("CustomerId")?.Value;
+        var customerId = _httpContextAccessor.HttpContext.User.FindFirst("customer_id")?.Value;
         var customer = await _customerRepository.GetAsync(customer => customerId != null &&
                                                                       customer.Id == Guid.Parse(customerId));
         customer.Age = changeCustomerAgeDto.Age;
