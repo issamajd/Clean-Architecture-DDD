@@ -3,18 +3,17 @@ using DDD.Customers;
 using DDD.SeedWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 
 namespace DDD.Providers;
 
 public class ProviderAppService : ApplicationService, IProviderAppService
 {
     private readonly IProviderRepository _providerRepository;
-    private readonly UserManager<AppUser> _userManager;
+    private readonly AppUserManager _userManager;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
     public ProviderAppService(IUnitOfWork unitOfWork, IProviderRepository providerRepository,
-        UserManager<AppUser> userManager,
+        AppUserManager userManager,
         IHttpContextAccessor httpContextAccessor) : base(unitOfWork)
     {
         _providerRepository = providerRepository;
@@ -36,17 +35,10 @@ public class ProviderAppService : ApplicationService, IProviderAppService
     {
         var user = new AppUser(id: Guid.NewGuid(), username: registerProviderAccountDto.Username);
 
-        var result = await _userManager.CreateAsync(user: user, password: registerProviderAccountDto.Password);
+        var result = await _userManager.AddUserWithRolesAsync(user, registerProviderAccountDto.Password,new[] {Roles.Provider});
         if (!result.Succeeded)
             throw new InvalidOperationException(
                 $"Unable to create a user: {result.Errors.FirstOrDefault()?.Description}");
-
-        result = await _userManager.AddToRoleAsync(user, Roles.Provider);
-        if (!result.Succeeded)
-        {
-            throw new InvalidOperationException(
-                $"Unable to add provider role the user: {result.Errors.FirstOrDefault()?.Description}");
-        }
         
         var provider = new Provider(id: Guid.NewGuid(), userId: user.Id,
             businessName: registerProviderAccountDto.BusinessName);
@@ -61,7 +53,7 @@ public class ProviderAppService : ApplicationService, IProviderAppService
         };
     }
 
-    [Authorize(Roles = Roles.Customer)]
+    [Authorize(Roles = Roles.Provider)]
     public async Task<ProviderDto> ChangeProviderBusinessNameAsync(
         ChangeProviderBusinessNameDto changeProviderBusinessNameDto)
     {

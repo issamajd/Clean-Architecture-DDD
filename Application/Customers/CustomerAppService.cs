@@ -9,11 +9,11 @@ namespace DDD.Customers;
 public class CustomerAppService : ApplicationService, ICustomerAppService
 {
     private readonly ICustomerRepository _customerRepository;
-    private readonly UserManager<AppUser> _userManager;
+    private readonly AppUserManager _userManager;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
     public CustomerAppService(IUnitOfWork unitOfWork, ICustomerRepository customerRepository,
-        UserManager<AppUser> userManager,
+        AppUserManager userManager,
         IHttpContextAccessor httpContextAccessor) : base(unitOfWork)
     {
         _customerRepository = customerRepository;
@@ -36,11 +36,11 @@ public class CustomerAppService : ApplicationService, ICustomerAppService
     {
         var user = new AppUser(id: Guid.NewGuid(), username: registerCustomerAccountDto.Username);
 
-        var result = await _userManager.CreateAsync(user: user,password: registerCustomerAccountDto.Password);
+        var result = await _userManager.AddUserWithRolesAsync(user, registerCustomerAccountDto.Password, new[] {Roles.Customer});
         if (!result.Succeeded)
             throw new InvalidOperationException(
                 $"Unable to create a user: {result.Errors.FirstOrDefault()?.Description}");
-
+        
         var customer = new Customer(id: Guid.NewGuid(), userId: user.Id, age: registerCustomerAccountDto.Age);
         customer = await _customerRepository.InsertAsync(customer);
         await UnitOfWork.SaveChangesAsync();

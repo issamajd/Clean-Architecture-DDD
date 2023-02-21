@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>()
+    .AddUserManager<AppUserManager>()
     .AddRoles<IdentityRole<Guid>>()
     .AddUserStore<AppUserStore>()
     .AddEntityFrameworkStores<AppDbContext>();
