@@ -122,7 +122,7 @@ public class EfCoreRepository<TEntity> : IRepository<TEntity> where TEntity : En
 
     public TEntity Update(TEntity entity)
     {
-        _dbContext.Set<TEntity>().Attach(entity);
+        _dbContext.Attach(entity);
         return _dbContext.Update(entity).Entity;
     }
 }

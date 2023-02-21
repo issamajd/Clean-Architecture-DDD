@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DDD.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230212164827_Init")]
+    [Migration("20230220120209_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -150,6 +150,26 @@ namespace DDD.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("d095bb6c-3874-4eaf-a3a4-740642778943"),
+                            Name = "CUSTOMER",
+                            NormalizedName = "Customer"
+                        },
+                        new
+                        {
+                            Id = new Guid("0c527bec-deab-4cbe-8a6b-f20b1ebcc33a"),
+                            Name = "PROVIDER",
+                            NormalizedName = "Provider"
+                        },
+                        new
+                        {
+                            Id = new Guid("bed9dccb-3791-49cd-a5a7-1cd19a14d2e6"),
+                            Name = "ADMIN",
+                            NormalizedName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

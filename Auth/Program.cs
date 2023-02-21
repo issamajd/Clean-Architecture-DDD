@@ -20,6 +20,7 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(
         policy  =>
         {
+            //TODO change hardcoded origins
             policy.WithOrigins("https://localhost:7206",
                     "http://localhost:5220")
                 .WithMethods("POST", "GET", "OPTIONS")
@@ -53,11 +54,7 @@ builder.Services.AddOpenIddict()
             .SetRevocationEndpointUris("connect/revocat")
             .SetVerificationEndpointUris("connect/verify");
 
-
-        // Encryption and signing of tokens
         options
-        //     .AddEphemeralEncryptionKey()
-        //     .AddEphemeralSigningKey()
         .DisableAccessTokenEncryption();
         
         options.RegisterScopes(
@@ -91,7 +88,6 @@ builder.Services.AddOpenIddict()
         options.AddAudiences("IdentityServer");
         // Import the configuration from the local OpenIddict server instance.
         options.UseLocalServer();
-
         // Register the ASP.NET Core host.
         options.UseAspNetCore();
     });

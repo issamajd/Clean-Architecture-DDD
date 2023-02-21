@@ -1,6 +1,7 @@
 using DDD.AppUsers;
 using DDD.Customers;
 using DDD.SeedWork;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
@@ -40,6 +41,13 @@ public class ProviderAppService : ApplicationService, IProviderAppService
             throw new InvalidOperationException(
                 $"Unable to create a user: {result.Errors.FirstOrDefault()?.Description}");
 
+        result = await _userManager.AddToRoleAsync(user, Roles.Provider);
+        if (!result.Succeeded)
+        {
+            throw new InvalidOperationException(
+                $"Unable to add provider role the user: {result.Errors.FirstOrDefault()?.Description}");
+        }
+        
         var provider = new Provider(id: Guid.NewGuid(), userId: user.Id,
             businessName: registerProviderAccountDto.BusinessName);
         provider = await _providerRepository.InsertAsync(provider);
@@ -53,6 +61,7 @@ public class ProviderAppService : ApplicationService, IProviderAppService
         };
     }
 
+    [Authorize(Roles = Roles.Customer)]
     public async Task<ProviderDto> ChangeProviderBusinessNameAsync(
         ChangeProviderBusinessNameDto changeProviderBusinessNameDto)
     {

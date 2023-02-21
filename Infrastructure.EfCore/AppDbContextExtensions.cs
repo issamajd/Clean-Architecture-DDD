@@ -1,3 +1,4 @@
+using DDD.AppUsers;
 using DDD.Customers;
 using DDD.Providers;
 using Microsoft.AspNetCore.Identity;
@@ -9,7 +10,27 @@ public static class AppDbContextExtensions
 {
     internal static void SeedUsersData(this ModelBuilder builder)
     {
+        builder.Entity<IdentityRole<Guid>>().HasData(
+            new
+            {
+                Id = Guid.NewGuid(),
+                Name = "CUSTOMER",
+                NormalizedName = "Customer"
+            },
+            new
+            {
+                Id = Guid.NewGuid(),
+                Name = "PROVIDER",
+                NormalizedName = "Provider"
+            },
+            new
+            {
+                Id = Guid.NewGuid(),
+                Name = "ADMIN",
+                NormalizedName = "Admin"
+            });
         /*
+         
         #region Customer seed data
         var cusHasher = new PasswordHasher<Customer>();
         var cus1 = new Customer(Guid.NewGuid(), "customertest1@gmail.co", "test1", 19);
@@ -42,6 +63,7 @@ public static class AppDbContextExtensions
         #endregion
         */
     }
+
     public static void ConfigureAppDb(this ModelBuilder builder)
     {
         builder.Entity<Provider>(b =>

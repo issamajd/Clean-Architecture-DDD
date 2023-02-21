@@ -2,7 +2,7 @@ namespace DDD.SeedWork;
 public abstract class Entity{}
 public abstract class Entity<TKey> : Entity
 {
-    public virtual TKey Id { get; protected set; }
+    public virtual TKey Id { get; protected set; } = default!; 
 
     protected Entity()
     {

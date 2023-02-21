@@ -1,5 +1,6 @@
 using DDD.AppUsers;
 using DDD.SeedWork;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
@@ -51,6 +52,7 @@ public class CustomerAppService : ApplicationService, ICustomerAppService
         };
     }
 
+    [Authorize(Roles = Roles.Provider)]
     public async Task<CustomerDto> ChangeCustomerAgeAsync(ChangeCustomerAgeDto changeCustomerAgeDto)
     {
         //TODO wrap accessing claims in a separate service

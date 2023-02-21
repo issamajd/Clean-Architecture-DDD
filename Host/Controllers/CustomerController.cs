@@ -16,6 +16,7 @@ public class CustomerController : Controller
 
     [Route("/customer")]
     [HttpGet]
+    [Authorize(Roles="Admin")]
     public async Task<CustomerDto> GetById(Guid id)
     {
         return await _customerAppService.GetAsync(id);
