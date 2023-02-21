@@ -14,7 +14,7 @@ public class AppUserManager : UserManager<AppUser>
     {
     }
 
-    public async Task<IdentityResult> AddUserWithRolesAsync(AppUser user,
+    public async Task<IdentityResult> CreateUserWithRolesAsync(AppUser user,
         string password,
         IEnumerable<string> roles)
     {

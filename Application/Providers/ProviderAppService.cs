@@ -35,7 +35,7 @@ public class ProviderAppService : ApplicationService, IProviderAppService
     {
         var user = new AppUser(id: Guid.NewGuid(), username: registerProviderAccountDto.Username);
 
-        var result = await _userManager.AddUserWithRolesAsync(user, registerProviderAccountDto.Password,new[] {Roles.Provider});
+        var result = await _userManager.CreateUserWithRolesAsync(user, registerProviderAccountDto.Password,new[] {Roles.Provider});
         if (!result.Succeeded)
             throw new InvalidOperationException(
                 $"Unable to create a user: {result.Errors.FirstOrDefault()?.Description}");

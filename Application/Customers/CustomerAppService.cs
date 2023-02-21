@@ -36,7 +36,7 @@ public class CustomerAppService : ApplicationService, ICustomerAppService
     {
         var user = new AppUser(id: Guid.NewGuid(), username: registerCustomerAccountDto.Username);
 
-        var result = await _userManager.AddUserWithRolesAsync(user, registerCustomerAccountDto.Password, new[] {Roles.Customer});
+        var result = await _userManager.CreateUserWithRolesAsync(user, registerCustomerAccountDto.Password, new[] {Roles.Customer});
         if (!result.Succeeded)
             throw new InvalidOperationException(
                 $"Unable to create a user: {result.Errors.FirstOrDefault()?.Description}");
