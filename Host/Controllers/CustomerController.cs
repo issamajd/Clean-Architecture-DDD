@@ -15,7 +15,6 @@ public class CustomerController : ControllerBase
         _customerAppService = customerAppService;
     }
 
-    [Route("/customer")]
     [HttpGet]
     [Authorize(Roles = "Admin")]
     public async Task<CustomerDto> GetById(Guid id)

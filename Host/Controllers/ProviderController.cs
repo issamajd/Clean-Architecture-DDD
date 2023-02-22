@@ -16,7 +16,6 @@ public class ProviderController : ControllerBase
         _providerAppService = providerAppService;
     }
 
-    [Route("/provider")]
     [HttpGet]
     public async Task<ProviderDto> GetById(Guid id)
     {
