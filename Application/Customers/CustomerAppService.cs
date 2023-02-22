@@ -52,7 +52,6 @@ public class CustomerAppService : ApplicationService, ICustomerAppService
         };
     }
 
-    [Authorize(Roles = Roles.Provider)]
     public async Task<CustomerDto> ChangeCustomerAgeAsync(ChangeCustomerAgeDto changeCustomerAgeDto)
     {
         //TODO wrap accessing claims in a separate service

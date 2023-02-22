@@ -1,7 +1,6 @@
 using DDD.AppUsers;
 using DDD.Customers;
 using DDD.SeedWork;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 
 namespace DDD.Providers;
@@ -35,11 +34,13 @@ public class ProviderAppService : ApplicationService, IProviderAppService
     {
         var user = new AppUser(id: Guid.NewGuid(), username: registerProviderAccountDto.Username);
 
-        var result = await _userManager.CreateUserWithRolesAsync(user, registerProviderAccountDto.Password,new[] {Roles.Provider});
+        var result =
+            await _userManager.CreateUserWithRolesAsync(user, registerProviderAccountDto.Password,
+                new[] { Roles.Provider });
         if (!result.Succeeded)
             throw new InvalidOperationException(
                 $"Unable to create a user: {result.Errors.FirstOrDefault()?.Description}");
-        
+
         var provider = new Provider(id: Guid.NewGuid(), userId: user.Id,
             businessName: registerProviderAccountDto.BusinessName);
         provider = await _providerRepository.InsertAsync(provider);
@@ -53,14 +54,13 @@ public class ProviderAppService : ApplicationService, IProviderAppService
         };
     }
 
-    [Authorize(Roles = Roles.Provider)]
     public async Task<ProviderDto> ChangeProviderBusinessNameAsync(
         ChangeProviderBusinessNameDto changeProviderBusinessNameDto)
     {
         var providerId = _httpContextAccessor.HttpContext.User.FindFirst("provider_id")?.Value;
         var provider = await _providerRepository.GetAsync(provider => providerId != null
                                                                       && provider.Id == Guid.Parse(providerId));
-        provider.BusinessName = changeProviderBusinessNameDto.BusinessName; 
+        provider.BusinessName = changeProviderBusinessNameDto.BusinessName;
         provider = _providerRepository.Update(provider);
 
         await UnitOfWork.SaveChangesAsync();

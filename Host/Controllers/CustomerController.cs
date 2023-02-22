@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DDD.Controllers;
 
+[ApiController]
 [Route("customer")]
-public class CustomerController : Controller
+public class CustomerController : ControllerBase
 {
     private readonly ICustomerAppService _customerAppService;
 
@@ -16,7 +17,7 @@ public class CustomerController : Controller
 
     [Route("/customer")]
     [HttpGet]
-    [Authorize(Roles="Admin")]
+    [Authorize(Roles = "Admin")]
     public async Task<CustomerDto> GetById(Guid id)
     {
         return await _customerAppService.GetAsync(id);
@@ -31,7 +32,7 @@ public class CustomerController : Controller
 
     [Route("change-age")]
     [HttpPost]
-    [Authorize]
+    [Authorize(Roles = Roles.Customer)]
     public async Task<CustomerDto> ChangeAge(ChangeCustomerAgeDto changeCustomerAgeDto)
     {
         return await _customerAppService.ChangeCustomerAgeAsync(changeCustomerAgeDto);

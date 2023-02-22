@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DDD.Controllers;
 
+[ApiController]
 [Route("provider")]
-public class ProviderController : Controller
+public class ProviderController : ControllerBase
 {
     private readonly IProviderAppService _providerAppService;
 
@@ -31,7 +32,7 @@ public class ProviderController : Controller
 
     [Route("change-business-name")]
     [HttpPost]
-    [Authorize]
+    [Authorize(Roles = Roles.Provider)]
     public async Task<ProviderDto> ChangeBusinessName(ChangeProviderBusinessNameDto changeProviderBusinessNameDto)
     {
         return await _providerAppService.ChangeProviderBusinessNameAsync(changeProviderBusinessNameDto);
