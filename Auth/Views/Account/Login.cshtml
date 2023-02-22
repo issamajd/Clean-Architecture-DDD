@@ -1,3 +1,4 @@
+@using Microsoft.AspNetCore.Mvc.ModelBinding
 @model DDD.ViewModels.LoginViewModel
 
 @{
@@ -6,6 +7,36 @@
 }
 
 <h2>Login</h2>
+
+
+    @if (ViewData.ModelState.ValidationState == ModelValidationState.Invalid)
+    {
+        <div class="alert alert-danger m-auto">
+            @ViewData.ModelState.Root.Errors.FirstOrDefault()?.ErrorMessage
+        </div>
+    }
+
+@{
+    if (Model.ExternalLogins.Count == 0)
+    {
+        <div>No external logins configured</div>
+    }
+    else
+    {
+        <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
+            <div>
+                @foreach (var provider in Model.ExternalLogins)
+                {
+                    <button type="submit" class="btn btn-primary" style="width:auto"
+                            name="provider" value="@provider.Name"
+                            title="Login using your @provider.DisplayName account">
+                        @provider.DisplayName
+                    </button>
+                }
+            </div>
+        </form>
+    }
+}
 <form autocomplete="off" asp-route="Login">
     <input type="hidden" asp-for="ReturnUrl"/>
     <div class="card">

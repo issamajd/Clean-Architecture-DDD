@@ -32,7 +32,9 @@ public class ProviderAppService : ApplicationService, IProviderAppService
 
     public async Task<ProviderDto> CreateAsync(RegisterProviderAccountDto registerProviderAccountDto)
     {
-        var user = new AppUser(id: Guid.NewGuid(), username: registerProviderAccountDto.Username);
+        var user = new AppUser(id: Guid.NewGuid(),
+            username: registerProviderAccountDto.Username,
+            email: registerProviderAccountDto.Email);
 
         var result =
             await _userManager.CreateUserWithRolesAsync(user, registerProviderAccountDto.Password,

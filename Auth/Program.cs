@@ -2,6 +2,7 @@ using DDD;
 using DDD.AppUsers;
 using DDD.Customers;
 using DDD.Providers;
+using DDD.SeedWork;
 using Microsoft.AspNetCore.Identity;
 using OpenIddict.Abstractions;
 
@@ -11,9 +12,17 @@ builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>()
     .AddUserStore<AppUserStore>()
     .AddEntityFrameworkStores<AppDbContext>();
-    
+
+builder.Services.AddAuthentication().AddGoogle(options =>
+{
+    options.ClientId = builder.Configuration["Authentication:Google:ClientId"] ??
+                       throw new InvalidOperationException("Google ClientId not defined");
+    options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ??
+                           throw new InvalidOperationException("Google ClientSecret not defined");
+});
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IProviderRepository, ProviderRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddCors(options =>
 {

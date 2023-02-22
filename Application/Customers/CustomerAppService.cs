@@ -34,7 +34,9 @@ public class CustomerAppService : ApplicationService, ICustomerAppService
 
     public async Task<CustomerDto> CreateAsync(RegisterCustomerAccountDto registerCustomerAccountDto)
     {
-        var user = new AppUser(id: Guid.NewGuid(), username: registerCustomerAccountDto.Username);
+        var user = new AppUser(id: Guid.NewGuid(),
+            username: registerCustomerAccountDto.Username,
+            email: registerCustomerAccountDto.Email);
 
         var result = await _userManager.CreateUserWithRolesAsync(user, registerCustomerAccountDto.Password, new[] {Roles.Customer});
         if (!result.Succeeded)
