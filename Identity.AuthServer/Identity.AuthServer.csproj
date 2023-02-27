@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>DDD.Identity</RootNamespace>
+        <UserSecretsId>82980e5f-508a-4bc7-b80b-0b5a143550ec</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.2" />
+      <PackageReference Include="OpenIddict.AspNetCore" Version="4.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Identity.Infrastructure.EfCore\Identity.Infrastructure.EfCore.csproj" />
+    </ItemGroup>
+
+</Project>
