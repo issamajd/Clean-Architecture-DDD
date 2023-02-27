@@ -114,7 +114,7 @@ public class EfCoreRepository<TEntity> : IRepository<TEntity> where TEntity : En
         _dbContext.Set<TEntity>().Remove(entity);
     }
 
-    public async Task<TEntity> InsertAsync(TEntity entity,
+    public async Task<TEntity> AddAsync(TEntity entity,
         CancellationToken cancellationToken = default)
     {
         return (await _dbContext.Set<TEntity>().AddAsync(entity, cancellationToken)).Entity;

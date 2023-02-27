@@ -1,33 +1,31 @@
+using AutoMapper;
 using DDD.AppUsers;
 using DDD.Customers;
 using DDD.SeedWork;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace DDD.Providers;
 
 public class ProviderAppService : ApplicationService, IProviderAppService
 {
-    private readonly IProviderRepository _providerRepository;
-    private readonly AppUserManager _userManager;
+    private readonly UserManager<AppUser> _userManager;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public ProviderAppService(IUnitOfWork unitOfWork, IProviderRepository providerRepository,
-        AppUserManager userManager,
-        IHttpContextAccessor httpContextAccessor) : base(unitOfWork)
+    public ProviderAppService(IUnitOfWork unitOfWork,
+        IMapper mapper,
+        UserManager<AppUser> userManager,
+        IHttpContextAccessor httpContextAccessor) : base(unitOfWork, mapper)
     {
-        _providerRepository = providerRepository;
         _userManager = userManager;
         _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<ProviderDto> GetAsync(Guid id)
     {
-        var provider = await _providerRepository.GetAsync(provider => provider.Id == id);
-        return new ProviderDto
-        {
-            BusinessName = provider.BusinessName, Id = provider.Id,
-            UserId = provider.UserId
-        };
+        var providerRepository = UnitOfWork.Repository<IProviderRepository, Provider>();
+        var provider = await providerRepository.GetAsync(provider => provider.Id == id);
+        return Mapper.Map<ProviderDto>(provider);
     }
 
     public async Task<ProviderDto> CreateAsync(RegisterProviderAccountDto registerProviderAccountDto)
@@ -36,41 +34,47 @@ public class ProviderAppService : ApplicationService, IProviderAppService
             username: registerProviderAccountDto.Username,
             email: registerProviderAccountDto.Email);
 
-        var result =
-            await _userManager.CreateUserWithRolesAsync(user, registerProviderAccountDto.Password,
-                new[] { Roles.Provider });
-        if (!result.Succeeded)
-            throw new InvalidOperationException(
-                $"Unable to create a user: {result.Errors.FirstOrDefault()?.Description}");
-
-        var provider = new Provider(id: Guid.NewGuid(), userId: user.Id,
-            businessName: registerProviderAccountDto.BusinessName);
-        provider = await _providerRepository.InsertAsync(provider);
-        await UnitOfWork.SaveChangesAsync();
-
-        return new ProviderDto()
+        await UnitOfWork.BeginAsync();
+        try
         {
-            Id = provider.Id,
-            UserId = provider.UserId,
-            BusinessName = provider.BusinessName
-        };
+            var result = await _userManager.CreateAsync(user, registerProviderAccountDto.Password);
+            if (!result.Succeeded)
+                throw new InvalidOperationException(
+                    $"Unable to create a user: {result.Errors.FirstOrDefault()?.Description}");
+
+            result = await _userManager.AddToRoleAsync(user, Roles.Provider);
+            if (!result.Succeeded)
+                throw new InvalidOperationException(
+                    $"Unable to add role user: {result.Errors.FirstOrDefault()?.Description}");
+
+            var providerRepository = UnitOfWork.Repository<IProviderRepository, Provider>();
+
+            var provider = new Provider(id: Guid.NewGuid(), userId: user.Id,
+                businessName: registerProviderAccountDto.BusinessName);
+            provider = await providerRepository.AddAsync(provider);
+
+            await UnitOfWork.CompleteAsync();
+            return Mapper.Map<ProviderDto>(provider);
+        }
+        catch (Exception)
+        {
+            UnitOfWork.Cancel();
+            throw;
+        }
     }
 
     public async Task<ProviderDto> ChangeProviderBusinessNameAsync(
         ChangeProviderBusinessNameDto changeProviderBusinessNameDto)
     {
         var providerId = _httpContextAccessor.HttpContext.User.FindFirst("provider_id")?.Value;
-        var provider = await _providerRepository.GetAsync(provider => providerId != null
-                                                                      && provider.Id == Guid.Parse(providerId));
+        var providerRepository = UnitOfWork.Repository<IProviderRepository, Provider>();
+
+        var provider = await providerRepository.GetAsync(provider => providerId != null
+                                                                     && provider.Id == Guid.Parse(providerId));
         provider.BusinessName = changeProviderBusinessNameDto.BusinessName;
-        provider = _providerRepository.Update(provider);
+        provider = providerRepository.Update(provider);
 
         await UnitOfWork.SaveChangesAsync();
-        return new ProviderDto
-        {
-            Id = provider.Id,
-            UserId = provider.UserId,
-            BusinessName = provider.BusinessName
-        };
+        return Mapper.Map<ProviderDto>(provider);
     }
 }

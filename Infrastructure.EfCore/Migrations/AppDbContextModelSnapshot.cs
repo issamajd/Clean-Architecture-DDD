@@ -151,19 +151,19 @@ namespace DDD.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d095bb6c-3874-4eaf-a3a4-740642778943"),
+                            Id = new Guid("5f9d98b3-be53-4832-82c4-3adc45e0c34f"),
                             Name = "CUSTOMER",
                             NormalizedName = "Customer"
                         },
                         new
                         {
-                            Id = new Guid("0c527bec-deab-4cbe-8a6b-f20b1ebcc33a"),
+                            Id = new Guid("7c371f85-df4f-4cd3-88ee-8968f279a997"),
                             Name = "PROVIDER",
                             NormalizedName = "Provider"
                         },
                         new
                         {
-                            Id = new Guid("bed9dccb-3791-49cd-a5a7-1cd19a14d2e6"),
+                            Id = new Guid("227806ef-167f-4711-9455-65756ca2a846"),
                             Name = "ADMIN",
                             NormalizedName = "Admin"
                         });

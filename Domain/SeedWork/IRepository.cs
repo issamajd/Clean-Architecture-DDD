@@ -86,12 +86,12 @@ public interface IRepository<TEntity> where TEntity : Entity
     void Delete(TEntity entity);
 
     /// <summary>
-    /// Insert a new entity
+    /// Add a new entity
     /// </summary>
-    /// <param name="entity">Inserted entity</param>
+    /// <param name="entity">Added entity</param>
     /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
     /// <returns></returns>
-    Task<TEntity> InsertAsync(TEntity entity, CancellationToken cancellationToken = default);
+    Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates an existing entity.

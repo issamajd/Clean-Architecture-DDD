@@ -26,8 +26,10 @@ public class AppDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var connectionString =  BuildConfiguration().GetConnectionString("Default");
-        optionsBuilder.UseMySQL(connectionString ?? throw new InvalidOperationException("Unable to connect to DB"));
+        var connectionString =  BuildConfiguration().GetConnectionString("Default") 
+                                ?? throw new InvalidOperationException("Connection string not provided");
+        var serverVersion = ServerVersion.AutoDetect(connectionString);
+        optionsBuilder.UseMySql(connectionString, serverVersion);
     }
 
     private static IConfigurationRoot BuildConfiguration()
