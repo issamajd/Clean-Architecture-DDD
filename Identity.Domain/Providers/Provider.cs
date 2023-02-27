@@ -3,7 +3,7 @@ using DDD.Identity.SeedWork;
 
 namespace DDD.Identity.Providers;
 
-public class Provider : AggregateRoot<Guid>
+public sealed class Provider : AggregateRoot<Guid>
 {
     [Required] 
     public Guid UserId { get; }

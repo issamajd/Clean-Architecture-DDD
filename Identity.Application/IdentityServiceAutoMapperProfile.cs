@@ -6,7 +6,8 @@ namespace DDD.Identity;
 
 public class IdentityServiceAutoMapperProfile : Profile
 {
-    public IdentityServiceAutoMapperProfile() {
+    public IdentityServiceAutoMapperProfile()
+    {
         CreateMap<Customer, CustomerDto>();
         CreateMap<Provider, ProviderDto>();
     }

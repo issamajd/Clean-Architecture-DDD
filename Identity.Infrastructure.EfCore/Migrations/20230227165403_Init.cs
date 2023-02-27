@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DDD.Identity.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -367,9 +367,9 @@ namespace DDD.Identity.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("227806ef-167f-4711-9455-65756ca2a846"), null, "ADMIN", "Admin" },
-                    { new Guid("5f9d98b3-be53-4832-82c4-3adc45e0c34f"), null, "CUSTOMER", "Customer" },
-                    { new Guid("7c371f85-df4f-4cd3-88ee-8968f279a997"), null, "PROVIDER", "Provider" }
+                    { new Guid("0fa0ef72-30c9-4371-840c-786f3cd96a40"), null, "CUSTOMER", "Customer" },
+                    { new Guid("45901a92-3b6f-4456-811b-967989810b4f"), null, "PROVIDER", "Provider" },
+                    { new Guid("636c995e-8130-436c-a598-9a004c301119"), null, "ADMIN", "Admin" }
                 });
 
             migrationBuilder.CreateIndex(

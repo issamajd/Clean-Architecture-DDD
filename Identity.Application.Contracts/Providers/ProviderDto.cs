@@ -1,4 +1,4 @@
-namespace DDD.Identity.Customers;
+namespace DDD.Identity.Providers;
 
 public class ProviderDto
 {

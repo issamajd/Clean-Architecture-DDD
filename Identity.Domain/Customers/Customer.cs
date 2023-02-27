@@ -3,12 +3,11 @@ using DDD.Identity.SeedWork;
 
 namespace DDD.Identity.Customers;
 
-public class Customer : AggregateRoot<Guid>
+public sealed class Customer : AggregateRoot<Guid>
 {
     public int? Age { get; set; }
 
-    [Required]
-    public Guid UserId { get; }
+    [Required] public Guid UserId { get; }
 
     public Customer(Guid id, Guid userId, int? age = null)
     {

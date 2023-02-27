@@ -19,7 +19,7 @@ namespace DDD.Identity.Migrations
                 .HasAnnotation("ProductVersion", "7.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("DDD.AppUsers.AppUser", b =>
+            modelBuilder.Entity("DDD.Identity.AppUsers.AppUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -84,7 +84,7 @@ namespace DDD.Identity.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("DDD.Customers.Customer", b =>
+            modelBuilder.Entity("DDD.Identity.Customers.Customer", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -103,7 +103,7 @@ namespace DDD.Identity.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("DDD.Providers.Provider", b =>
+            modelBuilder.Entity("DDD.Identity.Providers.Provider", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -151,19 +151,19 @@ namespace DDD.Identity.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5f9d98b3-be53-4832-82c4-3adc45e0c34f"),
+                            Id = new Guid("0fa0ef72-30c9-4371-840c-786f3cd96a40"),
                             Name = "CUSTOMER",
                             NormalizedName = "Customer"
                         },
                         new
                         {
-                            Id = new Guid("7c371f85-df4f-4cd3-88ee-8968f279a997"),
+                            Id = new Guid("45901a92-3b6f-4456-811b-967989810b4f"),
                             Name = "PROVIDER",
                             NormalizedName = "Provider"
                         },
                         new
                         {
-                            Id = new Guid("227806ef-167f-4711-9455-65756ca2a846"),
+                            Id = new Guid("636c995e-8130-436c-a598-9a004c301119"),
                             Name = "ADMIN",
                             NormalizedName = "Admin"
                         });
@@ -477,7 +477,7 @@ namespace DDD.Identity.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("DDD.AppUsers.AppUser", null)
+                    b.HasOne("DDD.Identity.AppUsers.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -486,7 +486,7 @@ namespace DDD.Identity.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("DDD.AppUsers.AppUser", null)
+                    b.HasOne("DDD.Identity.AppUsers.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -501,7 +501,7 @@ namespace DDD.Identity.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DDD.AppUsers.AppUser", null)
+                    b.HasOne("DDD.Identity.AppUsers.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -510,7 +510,7 @@ namespace DDD.Identity.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("DDD.AppUsers.AppUser", null)
+                    b.HasOne("DDD.Identity.AppUsers.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
