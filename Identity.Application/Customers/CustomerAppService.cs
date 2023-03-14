@@ -1,6 +1,6 @@
-using AutoMapper;
 using DDD.Identity.AppUsers;
 using DDD.Identity.SeedWork;
+using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
@@ -13,9 +13,8 @@ public class CustomerAppService : ApplicationService, ICustomerAppService
 
     public CustomerAppService(
         IUnitOfWork unitOfWork,
-        IMapper mapper,
         UserManager<AppUser> userManager,
-        IHttpContextAccessor httpContextAccessor) : base(unitOfWork, mapper)
+        IHttpContextAccessor httpContextAccessor) : base(unitOfWork)
     {
         _userManager = userManager;
         _httpContextAccessor = httpContextAccessor;
@@ -25,7 +24,7 @@ public class CustomerAppService : ApplicationService, ICustomerAppService
     {
         var customerRepository = UnitOfWork.Repository<ICustomerRepository, Customer>();
         var customer = await customerRepository.GetAsync(customer => customer.Id == id);
-        return Mapper.Map<CustomerDto>(customer);
+        return customer.Adapt<CustomerDto>();
     }
 
 
@@ -51,7 +50,7 @@ public class CustomerAppService : ApplicationService, ICustomerAppService
             var customer = new Customer(id: Guid.NewGuid(), userId: user.Id, age: registerCustomerAccountDto.Age);
             customer = await customerRepository.AddAsync(customer);
             await UnitOfWork.CompleteAsync();
-            return Mapper.Map<CustomerDto>(customer);
+            return customer.Adapt<CustomerDto>();
         }
         catch (Exception)
         {
@@ -73,6 +72,6 @@ public class CustomerAppService : ApplicationService, ICustomerAppService
         customer = customerRepository.Update(customer);
 
         await UnitOfWork.SaveChangesAsync();
-        return Mapper.Map<CustomerDto>(customer);
+        return customer.Adapt<CustomerDto>();
     }
 }

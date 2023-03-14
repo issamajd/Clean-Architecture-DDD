@@ -1,7 +1,6 @@
-using AutoMapper;
 using DDD.Identity.AppUsers;
-using DDD.Identity.Customers;
 using DDD.Identity.SeedWork;
+using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
@@ -13,9 +12,8 @@ public class ProviderAppService : ApplicationService, IProviderAppService
     private readonly IHttpContextAccessor _httpContextAccessor;
 
     public ProviderAppService(IUnitOfWork unitOfWork,
-        IMapper mapper,
         UserManager<AppUser> userManager,
-        IHttpContextAccessor httpContextAccessor) : base(unitOfWork, mapper)
+        IHttpContextAccessor httpContextAccessor) : base(unitOfWork)
     {
         _userManager = userManager;
         _httpContextAccessor = httpContextAccessor;
@@ -25,7 +23,7 @@ public class ProviderAppService : ApplicationService, IProviderAppService
     {
         var providerRepository = UnitOfWork.Repository<IProviderRepository, Provider>();
         var provider = await providerRepository.GetAsync(provider => provider.Id == id);
-        return Mapper.Map<ProviderDto>(provider);
+        return provider.Adapt<ProviderDto>();
     }
 
     public async Task<ProviderDto> CreateAsync(RegisterProviderAccountDto registerProviderAccountDto)
@@ -54,7 +52,7 @@ public class ProviderAppService : ApplicationService, IProviderAppService
             provider = await providerRepository.AddAsync(provider);
 
             await UnitOfWork.CompleteAsync();
-            return Mapper.Map<ProviderDto>(provider);
+            return provider.Adapt<ProviderDto>();
         }
         catch (Exception)
         {
@@ -75,6 +73,6 @@ public class ProviderAppService : ApplicationService, IProviderAppService
         provider = providerRepository.Update(provider);
 
         await UnitOfWork.SaveChangesAsync();
-        return Mapper.Map<ProviderDto>(provider);
+        return provider.Adapt<ProviderDto>();
     }
 }

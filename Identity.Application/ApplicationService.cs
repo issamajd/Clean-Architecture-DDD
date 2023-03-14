@@ -1,4 +1,3 @@
-using AutoMapper;
 using DDD.Identity.SeedWork;
 
 namespace DDD.Identity;
@@ -6,11 +5,9 @@ namespace DDD.Identity;
 public abstract class ApplicationService
 {
     protected IUnitOfWork UnitOfWork { get; }
-    protected IMapper Mapper { get; }
 
-    protected ApplicationService(IUnitOfWork unitOfWork, IMapper mapper)
+    protected ApplicationService(IUnitOfWork unitOfWork)
     {
         UnitOfWork = unitOfWork;
-        Mapper = mapper;
     }
 }

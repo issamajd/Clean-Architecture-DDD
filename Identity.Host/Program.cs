@@ -87,10 +87,6 @@ builder.Services.AddScoped<ICustomerAppService, CustomerAppService>();
 builder.Services.AddScoped<IProviderRepository, ProviderRepository>();
 builder.Services.AddScoped<IProviderAppService, ProviderAppService>();
 
-// builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-// builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddAutoMapper(typeof(IdentityServiceAutoMapperProfile));
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
