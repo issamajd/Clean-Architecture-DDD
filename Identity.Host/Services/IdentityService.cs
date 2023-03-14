@@ -6,9 +6,9 @@ public class IdentityService : IIdentityService<Guid>
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public IdentityService(IHttpContextAccessor httpContextAccessor)
+    public IdentityService(IHttpContextAccessor context)
     {
-        _httpContextAccessor = httpContextAccessor;
+        _httpContextAccessor = context.HttpContext != null ? context : throw new ArgumentNullException(nameof(context));
     }
 
     /// <inheritdoc cref="IIdentityService{TKey}.GetUserId"/>
@@ -16,7 +16,7 @@ public class IdentityService : IIdentityService<Guid>
     /// <exception cref="FormatException">If the user id is not formatted as Guid</exception>
     public Guid GetUserId()
     {
-        var userId = _httpContextAccessor.HttpContext?.User.FindFirst("sub")?.Value;
+        var userId = _httpContextAccessor.HttpContext!.User.FindFirst("sub")?.Value;
         userId = Check.NotNullOrEmpty(userId, nameof(userId));
         return Guid.Parse(userId);
     }
