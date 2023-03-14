@@ -1,22 +1,22 @@
+using Core;
 using DDD.Identity.AppUsers;
 using DDD.Identity.SeedWork;
 using Mapster;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
 namespace DDD.Identity.Providers;
 
 public class ProviderAppService : ApplicationService, IProviderAppService
 {
+    private readonly IIdentityService<Guid> _identityService;
     private readonly UserManager<AppUser> _userManager;
-    private readonly IHttpContextAccessor _httpContextAccessor;
 
     public ProviderAppService(IUnitOfWork unitOfWork,
-        UserManager<AppUser> userManager,
-        IHttpContextAccessor httpContextAccessor) : base(unitOfWork)
+        IIdentityService<Guid> identityService,
+        UserManager<AppUser> userManager) : base(unitOfWork)
     {
+        _identityService = identityService;
         _userManager = userManager;
-        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<ProviderDto> GetAsync(Guid id)
@@ -64,11 +64,10 @@ public class ProviderAppService : ApplicationService, IProviderAppService
     public async Task<ProviderDto> ChangeProviderBusinessNameAsync(
         ChangeProviderBusinessNameDto changeProviderBusinessNameDto)
     {
-        var providerId = _httpContextAccessor.HttpContext.User.FindFirst("provider_id")?.Value;
+        var userId = _identityService.GetUserId();
         var providerRepository = UnitOfWork.Repository<IProviderRepository, Provider>();
 
-        var provider = await providerRepository.GetAsync(provider => providerId != null
-                                                                     && provider.Id == Guid.Parse(providerId));
+        var provider = await providerRepository.GetAsync(provider =>  provider.UserId == userId);
         provider.BusinessName = changeProviderBusinessNameDto.BusinessName;
         provider = providerRepository.Update(provider);
 

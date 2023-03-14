@@ -1,7 +1,7 @@
+using Core;
 using DDD.Identity.AppUsers;
 using DDD.Identity.SeedWork;
 using Mapster;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
 namespace DDD.Identity.Customers;
@@ -9,15 +9,15 @@ namespace DDD.Identity.Customers;
 public class CustomerAppService : ApplicationService, ICustomerAppService
 {
     private readonly UserManager<AppUser> _userManager;
-    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IIdentityService<Guid> _identityService;
 
     public CustomerAppService(
         IUnitOfWork unitOfWork,
         UserManager<AppUser> userManager,
-        IHttpContextAccessor httpContextAccessor) : base(unitOfWork)
+        IIdentityService<Guid> identityService) : base(unitOfWork)
     {
         _userManager = userManager;
-        _httpContextAccessor = httpContextAccessor;
+        _identityService = identityService;
     }
 
     public async Task<CustomerDto> GetAsync(Guid id)
@@ -61,13 +61,10 @@ public class CustomerAppService : ApplicationService, ICustomerAppService
 
     public async Task<CustomerDto> ChangeCustomerAgeAsync(ChangeCustomerAgeDto changeCustomerAgeDto)
     {
-        //TODO wrap accessing claims in a separate service
-        var customerId = _httpContextAccessor.HttpContext.User.FindFirst("customer_id")?.Value;
-
+        var userId = _identityService.GetUserId();
         var customerRepository = UnitOfWork.Repository<ICustomerRepository, Customer>();
 
-        var customer = await customerRepository.GetAsync(customer => customerId != null &&
-                                                                     customer.Id == Guid.Parse(customerId));
+        var customer = await customerRepository.GetAsync(customer => customer.UserId == userId);
         customer.Age = changeCustomerAgeDto.Age;
         customer = customerRepository.Update(customer);
 

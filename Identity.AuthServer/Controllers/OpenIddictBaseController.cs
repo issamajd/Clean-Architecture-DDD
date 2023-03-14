@@ -16,6 +16,7 @@ namespace DDD.Identity.Controllers;
 [ApiExplorerSettings(IgnoreApi = true)]
 public abstract class OpenIddictBaseController : Controller
 {
+    //TODO check if using service locator pattern is allowed here
     protected IOpenIddictApplicationManager ApplicationManager =>
         HttpContext.RequestServices.GetService<IOpenIddictApplicationManager>()!;
 
@@ -48,15 +49,6 @@ public abstract class OpenIddictBaseController : Controller
     {
         var claimsPrincipal = await SignInManager.CreateUserPrincipalAsync(user);
         claimsPrincipal.SetClaim(Claims.Subject, user.Id.ToString());
-        
-        var customer = await CustomerRepository.FindAsync(x => x.UserId == user.Id);
-        var provider = await ProviderRepository.FindAsync(x => x.UserId == user.Id);
-        
-        //TODO use Domain.Shared const values
-        if (customer != null)
-            claimsPrincipal.SetClaim("customer_id", customer.Id.ToString());
-        if (provider != null)
-            claimsPrincipal.SetClaim("provider_id", provider.Id.ToString());
         return claimsPrincipal;
     }
 

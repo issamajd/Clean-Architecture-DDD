@@ -1,8 +1,10 @@
+using Core;
 using DDD.Identity;
 using DDD.Identity.AppUsers;
 using DDD.Identity.Customers;
 using DDD.Identity.Providers;
 using DDD.Identity.SeedWork;
+using DDD.Identity.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
@@ -46,19 +48,19 @@ builder.Services.AddSwaggerGen(option =>
         Description = "Please enter a valid token",
         Name = "Authorization",
         Type = SecuritySchemeType.OAuth2,
-        
+
         Flows = new OpenApiOAuthFlows
         {
-          AuthorizationCode  = new OpenApiOAuthFlow
-          {
-              AuthorizationUrl = authorizationUrl,
-              TokenUrl = tokenUrl,
-              Scopes = new Dictionary<string, string>
-              {
-                  {"identity", ""},   
-                  {"openid", ""},   
-              }
-          }
+            AuthorizationCode = new OpenApiOAuthFlow
+            {
+                AuthorizationUrl = authorizationUrl,
+                TokenUrl = tokenUrl,
+                Scopes = new Dictionary<string, string>
+                {
+                    { "identity", "" },
+                    { "openid", "" },
+                }
+            }
         },
     });
     option.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -75,7 +77,6 @@ builder.Services.AddSwaggerGen(option =>
             new string[] { }
         }
     });
-
 });
 
 
@@ -86,6 +87,7 @@ builder.Services.AddScoped<ICustomerAppService, CustomerAppService>();
 
 builder.Services.AddScoped<IProviderRepository, ProviderRepository>();
 builder.Services.AddScoped<IProviderAppService, ProviderAppService>();
+builder.Services.AddScoped<IIdentityService<Guid>, IdentityService>();
 
 var app = builder.Build();
 
