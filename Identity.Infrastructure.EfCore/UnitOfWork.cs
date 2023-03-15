@@ -1,26 +1,16 @@
 using DDD.Identity.SeedWork;
 using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace DDD.Identity;
 
 public class UnitOfWork : IUnitOfWork
 {
     private readonly AppDbContext _appDbContext;
-    private readonly IServiceProvider _serviceProvider;
     private IDbContextTransaction? _currentTransaction;
 
-    public UnitOfWork(AppDbContext appDbContext, IServiceProvider serviceProvider)
+    public UnitOfWork(AppDbContext appDbContext)
     {
         _appDbContext = appDbContext;
-        _serviceProvider = serviceProvider;
-    }
-
-    public T Repository<T, TEntity>()
-        where T : IRepository<TEntity>
-        where TEntity : Entity
-    {
-        return _serviceProvider.GetRequiredService<T>();
     }
 
     public Task BeginAsync() => BeginTransactionAsync();
@@ -28,7 +18,7 @@ public class UnitOfWork : IUnitOfWork
     public Task CompleteAsync() => CommitTransactionAsync();
 
     public void Cancel() => RollbackTransaction();
-    
+
     private async Task BeginTransactionAsync()
     {
         if (_currentTransaction != null)

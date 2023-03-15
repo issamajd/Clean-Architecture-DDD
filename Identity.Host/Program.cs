@@ -1,6 +1,7 @@
 using Core;
 using DDD.Identity;
 using DDD.Identity.AppUsers;
+using DDD.Identity.Behaviors;
 using DDD.Identity.Customers;
 using DDD.Identity.Providers;
 using DDD.Identity.SeedWork;
@@ -81,7 +82,8 @@ builder.Services.AddSwaggerGen(option =>
 
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+builder.Services.AddScoped<IUnitOfWorkBehavior, UnitOfWorkBehavior>();
+    
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerAppService, CustomerAppService>();
 
@@ -106,6 +108,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseUnitOfWork();
 app.MapControllers();
 app.MapGet("/", () => Results.Redirect("~/swagger")).ExcludeFromDescription();
 
