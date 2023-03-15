@@ -8,6 +8,12 @@ namespace DDD.Identity.Controllers;
 
 public class LogoutController : OpenIddictBaseController
 {
+    private readonly SignInManager<AppUser> _signInManager;
+
+    public LogoutController(SignInManager<AppUser> signInManager)
+    {
+        _signInManager = signInManager;
+    }
 
     [HttpGet("~/connect/logout")]
     public IActionResult Logout() => View();
@@ -18,7 +24,7 @@ public class LogoutController : OpenIddictBaseController
         // Ask ASP.NET Core Identity to delete the local and external cookies created
         // when the user agent is redirected from the external identity provider
         // after a successful authentication flow (e.g Google or Facebook).
-        await SignInManager.SignOutAsync();
+        await _signInManager.SignOutAsync();
 
         // Returning a SignOutResult will ask OpenIddict to redirect the user agent
         // to the post_logout_redirect_uri specified by the client application or to

@@ -1,7 +1,10 @@
+using System.Security.Claims;
+using DDD.Identity.AppUsers;
 using DDD.Identity.Helpers;
 using DDD.Identity.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
@@ -11,6 +14,24 @@ namespace DDD.Identity.Controllers;
 
 public class AuthorizeController : OpenIddictBaseController
 {
+    private readonly IOpenIddictApplicationManager _applicationManager;
+    private readonly IOpenIddictAuthorizationManager _authorizationManager;
+    private readonly IOpenIddictScopeManager _scopeManager;
+    private readonly SignInManager<AppUser> _signInManager;
+    private readonly UserManager<AppUser> _userManager;
+    public AuthorizeController(IOpenIddictApplicationManager applicationManager,
+        IOpenIddictAuthorizationManager authorizationManager,
+        IOpenIddictScopeManager scopeManager,
+        SignInManager<AppUser> signInManager,
+        UserManager<AppUser> userManager)
+    {
+        _applicationManager = applicationManager;
+        _authorizationManager = authorizationManager;
+        _scopeManager = scopeManager;
+        _signInManager = signInManager;
+        _userManager = userManager;
+    }
+    
     [HttpGet("~/connect/authorize")]
     [HttpPost("~/connect/authorize")]
     [IgnoreAntiforgeryToken]
@@ -42,16 +63,16 @@ public class AuthorizeController : OpenIddictBaseController
                 });
         }
 
-        var user = await UserManager.GetUserAsync(result.Principal) ??
+        var user = await _userManager.GetUserAsync(result.Principal) ??
                    throw new InvalidOperationException("The user details cannot be retrieved");
 
-        var application = await ApplicationManager.FindByClientIdAsync(request.ClientId ?? string.Empty) ??
+        var application = await _applicationManager.FindByClientIdAsync(request.ClientId ?? string.Empty) ??
                           throw new InvalidOperationException(
                               "Details concerning the calling client application cannot be found.");
 
-        var applicationId = (await ApplicationManager.GetIdAsync(application))!;
+        var applicationId = (await _applicationManager.GetIdAsync(application))!;
         // Retrieve the permanent authorizations associated with the user and the calling client application.
-        var authorizations = await AuthorizationManager.FindAsync(
+        var authorizations = await _authorizationManager.FindAsync(
             subject: user.Id.ToString(),
             client: applicationId,
             status: Statuses.Valid,
@@ -59,7 +80,7 @@ public class AuthorizeController : OpenIddictBaseController
             scopes: request.GetScopes()
         ).ToListAsync();
 
-        switch (await ApplicationManager.GetConsentTypeAsync(application))
+        switch (await _applicationManager.GetConsentTypeAsync(application))
         {
             // If the consent is external (e.g when authorizations are granted by a sysadmin),
             // immediately return an error if no authorization can be found in the database.
@@ -99,7 +120,7 @@ public class AuthorizeController : OpenIddictBaseController
             default:
                 return View(new AuthorizeViewModel
                 {
-                    ApplicationName = await ApplicationManager.GetLocalizedDisplayNameAsync(application),
+                    ApplicationName = await _applicationManager.GetLocalizedDisplayNameAsync(application),
                     Scope = request.Scope
                 });
         }
@@ -118,13 +139,13 @@ public class AuthorizeController : OpenIddictBaseController
 
         var request = GetOpenIddictServerRequest();
 
-        var user = await UserManager.GetUserAsync(User) ??
+        var user = await _userManager.GetUserAsync(User) ??
                    throw new InvalidOperationException("The user details cannot be retrieved.");
-        var application = await ApplicationManager.FindByClientIdAsync(request.ClientId ?? string.Empty) ??
+        var application = await _applicationManager.FindByClientIdAsync(request.ClientId ?? string.Empty) ??
                           throw new InvalidOperationException(
                               "Details concerning the calling client application cannot be found.");
-        var applicationId = (await ApplicationManager.GetIdAsync(application))!;
-        var authorizations = await AuthorizationManager.FindAsync(
+        var applicationId = (await _applicationManager.GetIdAsync(application))!;
+        var authorizations = await _authorizationManager.FindAsync(
             subject: user.Id.ToString(),
             client: applicationId,
             status: Statuses.Valid,
@@ -135,7 +156,7 @@ public class AuthorizeController : OpenIddictBaseController
         // Note: the same check is already made in the other action but is repeated
         // here to ensure a malicious user can't abuse this POST-only endpoint and
         // force it to return a valid response without the external authorization.
-        if (!authorizations.Any() && await ApplicationManager.HasConsentTypeAsync(application, ConsentTypes.External))
+        if (!authorizations.Any() && await _applicationManager.HasConsentTypeAsync(application, ConsentTypes.External))
             return Forbid(
                 authenticationSchemes: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme,
                 properties: new AuthenticationProperties(new Dictionary<string, string?>
@@ -151,5 +172,38 @@ public class AuthorizeController : OpenIddictBaseController
 
         claimsPrincipal.SetDestinations(GetDestinations);
         return SignIn(claimsPrincipal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
+    }
+    
+    private async Task<ClaimsPrincipal> CreateClaimsPrincipalWithClaims(AppUser user)
+    {
+        var claimsPrincipal = await _signInManager.CreateUserPrincipalAsync(user);
+        claimsPrincipal.SetClaim(Claims.Subject, user.Id.ToString());
+        return claimsPrincipal;
+    }
+
+    private async Task<ClaimsPrincipal> AddAuthorizationToIdentity(ClaimsPrincipal claimsPrincipal,
+        OpenIddictRequest request,
+        AppUser user,
+        string applicationId,
+        IEnumerable<object> authorizations)
+    {
+        // Note: in this sample, the granted scopes match the requested scope
+        // but you may want to allow the user to uncheck specific scopes.
+        // For that, simply restrict the list of scopes before calling SetScopes.
+        claimsPrincipal.SetScopes(request.GetScopes());
+        claimsPrincipal.SetResources(await _scopeManager.ListResourcesAsync(claimsPrincipal.GetScopes()).ToListAsync());
+
+        // Automatically create a permanent authorization to avoid requiring explicit consent
+        // for future authorization or token requests containing the same scopes.
+        var authorization = authorizations.LastOrDefault();
+        authorization ??= await _authorizationManager.CreateAsync(
+            principal: claimsPrincipal,
+            subject: await _userManager.GetUserIdAsync(user),
+            client: applicationId,
+            type: AuthorizationTypes.Permanent,
+            scopes: claimsPrincipal.GetScopes());
+
+        claimsPrincipal.SetAuthorizationId(await _authorizationManager.GetIdAsync(authorization));
+        return claimsPrincipal;
     }
 }

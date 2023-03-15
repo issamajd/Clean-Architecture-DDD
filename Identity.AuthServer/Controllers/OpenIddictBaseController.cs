@@ -1,14 +1,7 @@
 using System.Security.Claims;
-using DDD.Identity.Helpers;
-using DDD.Identity.AppUsers;
-using DDD.Identity.Customers;
-using DDD.Identity.Providers;
 using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OpenIddict.Abstractions;
-using OpenIddict.Server.AspNetCore;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace DDD.Identity.Controllers;
@@ -16,69 +9,11 @@ namespace DDD.Identity.Controllers;
 [ApiExplorerSettings(IgnoreApi = true)]
 public abstract class OpenIddictBaseController : Controller
 {
-    //TODO check if using service locator pattern is allowed here
-    protected IOpenIddictApplicationManager ApplicationManager =>
-        HttpContext.RequestServices.GetService<IOpenIddictApplicationManager>()!;
-
-    protected IOpenIddictAuthorizationManager AuthorizationManager =>
-        HttpContext.RequestServices.GetService<IOpenIddictAuthorizationManager>()!;
-
-    protected IOpenIddictScopeManager ScopeManager =>
-        HttpContext.RequestServices.GetService<IOpenIddictScopeManager>()!;
-
-    protected UserManager<AppUser> UserManager =>
-        HttpContext.RequestServices.GetService<UserManager<AppUser>>()!;
-
-    protected SignInManager<AppUser> SignInManager =>
-        HttpContext.RequestServices.GetService<SignInManager<AppUser>>()!;
-
-    protected ICustomerRepository CustomerRepository =>
-        HttpContext.RequestServices.GetService<ICustomerRepository>()!;
-
-    protected IProviderRepository ProviderRepository =>
-        HttpContext.RequestServices.GetService<IProviderRepository>()!;
-
-
     protected OpenIddictRequest GetOpenIddictServerRequest()
     {
         return HttpContext.GetOpenIddictServerRequest() ??
                throw new InvalidOperationException("The OpenID Connect request cannot be retrieved.");
     }
-
-    protected async Task<ClaimsPrincipal> CreateClaimsPrincipalWithClaims(AppUser user)
-    {
-        var claimsPrincipal = await SignInManager.CreateUserPrincipalAsync(user);
-        claimsPrincipal.SetClaim(Claims.Subject, user.Id.ToString());
-        return claimsPrincipal;
-    }
-
-    protected async Task<ClaimsPrincipal> AddAuthorizationToIdentity(ClaimsPrincipal claimsPrincipal,
-        OpenIddictRequest request,
-        AppUser user,
-        string applicationId,
-        IEnumerable<object> authorizations)
-    {
-        // Note: in this sample, the granted scopes match the requested scope
-        // but you may want to allow the user to uncheck specific scopes.
-        // For that, simply restrict the list of scopes before calling SetScopes.
-        claimsPrincipal.SetScopes(request.GetScopes());
-        claimsPrincipal.SetResources(await ScopeManager.ListResourcesAsync(claimsPrincipal.GetScopes()).ToListAsync());
-
-        // Automatically create a permanent authorization to avoid requiring explicit consent
-        // for future authorization or token requests containing the same scopes.
-        var authorization = authorizations.LastOrDefault();
-        authorization ??= await AuthorizationManager.CreateAsync(
-            principal: claimsPrincipal,
-            subject: await UserManager.GetUserIdAsync(user),
-            client: applicationId,
-            type: AuthorizationTypes.Permanent,
-            scopes: claimsPrincipal.GetScopes());
-
-        claimsPrincipal.SetAuthorizationId(await AuthorizationManager.GetIdAsync(authorization));
-        return claimsPrincipal;
-    }
-
-    [Authorize(AuthenticationSchemes = OpenIddictServerAspNetCoreDefaults.AuthenticationScheme)]
     protected static IEnumerable<string> GetDestinations(Claim claim)
     {
         // Note: by default, claims are NOT automatically included in the access and identity tokens.

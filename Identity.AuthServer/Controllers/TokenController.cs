@@ -9,7 +9,15 @@ namespace DDD.Identity.Controllers;
 
 public class TokenController : OpenIddictBaseController
 {
+    private readonly SignInManager<AppUser> _signInManager;
+    private readonly UserManager<AppUser> _userManager;
 
+    public TokenController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
+    {
+        _signInManager = signInManager;
+        _userManager = userManager;
+    }
+    
     [HttpPost("~/connect/token")]
     [IgnoreAntiforgeryToken]
     [Produces("application/json")]
@@ -23,7 +31,7 @@ public class TokenController : OpenIddictBaseController
         // Retrieve the claims principal stored in the authorization code/refresh token.
         var result = await HttpContext.AuthenticateAsync(OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
         // Retrieve the user profile corresponding to the authorization code/refresh token.
-        var user = await UserManager.FindByIdAsync(result.Principal?.GetClaim(OpenIddictConstants.Claims.Subject) ??
+        var user = await _userManager.FindByIdAsync(result.Principal?.GetClaim(OpenIddictConstants.Claims.Subject) ??
                                                    string.Empty);
         if (user == null)
             return Forbid(
@@ -36,7 +44,7 @@ public class TokenController : OpenIddictBaseController
                 }));
 
         // Ensure the user is still allowed to sign in.
-        if (!await SignInManager.CanSignInAsync(user))
+        if (!await _signInManager.CanSignInAsync(user))
             return Forbid(
                 authenticationSchemes: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme,
                 properties: new AuthenticationProperties(new Dictionary<string, string?>
