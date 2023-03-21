@@ -1,7 +1,6 @@
 using System.Security.Claims;
 using DDD.Identity.AppUsers;
 using DDD.Identity.Helpers;
-using DDD.Identity.SeedWork;
 using DDD.Identity.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -15,16 +14,13 @@ public class AccountController : Controller
 {
     private readonly SignInManager<AppUser> _signInManager;
     private readonly UserManager<AppUser> _userManager;
-    private readonly IUnitOfWork _unitOfWork;
 
     public AccountController(SignInManager<AppUser> signInManager,
-        UserManager<AppUser> userManager,
-        IUnitOfWork unitOfWork
+        UserManager<AppUser> userManager
     )
     {
         _signInManager = signInManager;
         _userManager = userManager;
-        _unitOfWork = unitOfWork;
     }
 
     [HttpGet]
@@ -116,7 +112,6 @@ public class AccountController : Controller
                 // Add a login (i.e insert a row for the user in AspNetUserLogins table)
                 await _userManager.AddLoginAsync(user, info);
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                await _unitOfWork.SaveChangesAsync();
                 return LocalRedirect(returnUrl);
             }
         }

@@ -1,8 +1,10 @@
+using DDD.Core.Infrastructure.EfCore;
+
 namespace DDD.Identity.Customers;
 
-public class CustomerRepository : EfCoreRepository<Customer>, ICustomerRepository
+public class CustomerRepository : EfCoreRepository<Customer, IIdentityDbContext>, ICustomerRepository
 {
-    public CustomerRepository(AppDbContext dbContext) : base(dbContext)
+    public CustomerRepository(IIdentityDbContext dbContext) : base(dbContext)
     {
     }
 }

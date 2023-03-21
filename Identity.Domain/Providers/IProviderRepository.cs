@@ -1,4 +1,4 @@
-using DDD.Identity.SeedWork;
+using DDD.Core.Domain;
 
 namespace DDD.Identity.Providers;
 

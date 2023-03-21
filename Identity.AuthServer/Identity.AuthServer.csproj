@@ -9,12 +9,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.2" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.2" />
       <PackageReference Include="OpenIddict.AspNetCore" Version="4.0.0" />
+      <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="4.0.0" />
+      <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Identity.Infrastructure.EfCore\Identity.Infrastructure.EfCore.csproj" />
+      <ProjectReference Include="..\Identity.Domain\Identity.Domain.csproj" />
     </ItemGroup>
 
 </Project>

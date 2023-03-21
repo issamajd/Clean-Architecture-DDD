@@ -17,9 +17,9 @@ public class Startup
 
     public virtual IServiceProvider ConfigureServices(IServiceCollection services)
     {
-        services.AddDbContext<AppDbContext>();
+        services.AddDbContext<AuthServerDbContext>();
         services.AddIdentity<AppUser, IdentityRole<Guid>>()
-            .AddEntityFrameworkStores<AppDbContext>();
+            .AddEntityFrameworkStores<AuthServerDbContext>();
 
         ConfigureAuth(services);
         
@@ -43,7 +43,6 @@ public class Startup
         //autofac container
         var container = new ContainerBuilder();
         container.Populate(services);
-        container.RegisterModule(new IdentityInfrastructureEfCoreModule());
         return new AutofacServiceProvider(container.Build());
     }
 
@@ -58,7 +57,7 @@ public class Startup
         });
 
         services.AddOpenIddict()
-            .AddCore(options => { options.UseEntityFrameworkCore().UseDbContext<AppDbContext>(); })
+            .AddCore(options => { options.UseEntityFrameworkCore().UseDbContext<AuthServerDbContext>(); })
             .AddServer(options =>
             {
                 options

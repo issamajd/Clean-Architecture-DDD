@@ -1,11 +1,10 @@
-using Core;
+using DDD.Core.Utils;
 using Microsoft.AspNetCore.Identity;
 
 namespace DDD.Identity.AppUsers;
 
 public sealed class AppUser : IdentityUser<Guid>
 {
-
     private AppUser()
     {
     }

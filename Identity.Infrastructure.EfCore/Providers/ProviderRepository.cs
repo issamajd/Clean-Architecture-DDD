@@ -1,7 +1,9 @@
+using DDD.Core.Infrastructure.EfCore;
+
 namespace DDD.Identity.Providers;
 
-public class ProviderRepository : EfCoreRepository<Provider>, IProviderRepository
+public class ProviderRepository : EfCoreRepository<Provider, IIdentityDbContext>, IProviderRepository
 {
-    public ProviderRepository(AppDbContext dbContext) : base(dbContext)
+    public ProviderRepository(IIdentityDbContext dbContext) : base(dbContext)
     {}
 }

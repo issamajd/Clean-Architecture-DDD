@@ -1,4 +1,5 @@
-using Core;
+using DDD.Core.Application;
+using DDD.Core.Utils;
 using DDD.Identity.AppUsers;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
@@ -32,6 +33,7 @@ public class ProviderAppService : ApplicationService, IProviderAppService
             username: registerProviderAccountDto.Username,
             email: registerProviderAccountDto.Email);
 
+        //TODO move this logic to ProviderManager
         var result = await _userManager.CreateAsync(user, registerProviderAccountDto.Password);
         if (!result.Succeeded)
             throw new InvalidOperationException(

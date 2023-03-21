@@ -1,4 +1,5 @@
-using Core;
+using DDD.Core.Application;
+using DDD.Core.Utils;
 using DDD.Identity.AppUsers;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
@@ -34,11 +35,12 @@ public class CustomerAppService : ApplicationService, ICustomerAppService
             username: registerCustomerAccountDto.Username,
             email: registerCustomerAccountDto.Email);
 
+        // TODO move this logic to CustomerManager
         var result = await _userManager.CreateAsync(user, registerCustomerAccountDto.Password);
         if (!result.Succeeded)
             throw new InvalidOperationException(
                 $"Unable to create a user: {result.Errors.FirstOrDefault()?.Description}");
-        
+
         result = await _userManager.AddToRoleAsync(user, Roles.Customer);
         if (!result.Succeeded)
             throw new InvalidOperationException(
