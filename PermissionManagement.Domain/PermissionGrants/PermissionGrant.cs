@@ -19,6 +19,7 @@ public class PermissionGrant : AggregateRoot<Guid>
                 $"Holder name must be either {PermissionGrantConsts.Role} or {PermissionGrantConsts.User}");
         HolderName = holderName;
     }
+    private PermissionGrant(){}
 
     internal PermissionGrant(string name, string holderName, string holderKey)
     {

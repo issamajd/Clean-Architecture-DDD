@@ -4,6 +4,7 @@ using Autofac.Extensions.DependencyInjection;
 using DDD.Core.Hosting;
 using DDD.Core.Utils;
 using DDD.Host.Services;
+using DDD.Identity;
 using DDD.Identity.AppUsers;
 using DDD.Infrastructure.EfCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -39,6 +40,12 @@ public class Startup
         //autofac container
         var container = new ContainerBuilder();
         container.Populate(services);
+        container.AddCoreServices();
+        container.AddUnitOfWork();
+
+        container.RegisterModule<IdentityDomainModule>();
+        container.RegisterModule<IdentityInfrastructureEfCoreModule>();
+        container.RegisterModule<IdentityApplicationModule>();
         
         var sp = new AutofacServiceProvider(container.Build());
         return sp;

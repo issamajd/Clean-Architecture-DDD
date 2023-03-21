@@ -1,5 +1,4 @@
-using DDD.Identity.Customers;
-using DDD.Identity.Providers;
+using DDD.Identity.AppUsers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -49,31 +48,16 @@ public static class AppDbContextExtensions
         prov2.PasswordHash = provHasher.HashPassword(prov2, "test");
         
         builder.Entity<Provider>().HasData(prov1, prov2);
-        
-        #endregion
-            
-        #region User Identity seed data
-       
-        var hasher = new PasswordHasher<IdentityUser<Guid>>();
-        var admin = new IdentityUser<Guid> {Id = Guid.NewGuid(),  Email = "providertest1@gmail.co", UserName = "admin"};
-        admin.PasswordHash = hasher.HashPassword(admin, "test");
-        builder.Entity<IdentityUser<Guid>>().HasData(admin);
-        
-        #endregion
+        #endregion                        
         */
-    }
 
-    public static void ConfigureAppDb(this ModelBuilder builder)
-    {
-        builder.Entity<Provider>(b =>
-        {
-            b.HasKey(x => x.Id);
-            b.HasIndex(x => x.UserId);
-        });
-        builder.Entity<Customer>(b =>
-        {
-            b.HasKey(x => x.Id);
-            b.HasIndex(x => x.UserId);
-        });
+        #region User Identity seed data
+
+        var hasher = new PasswordHasher<AppUser>();
+        var admin = new AppUser(Guid.NewGuid(), "admin", "admin@gmail.com");
+        admin.PasswordHash = hasher.HashPassword(admin, "test");
+        builder.Entity<AppUser>().HasData(admin);
+
+        #endregion
     }
 }
