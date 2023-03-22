@@ -1,6 +1,5 @@
-namespace DDD.Core.Utils;
+namespace DDD.Core.Application;
 
-//TODO move it to another project
 public interface IIdentityService<out TKey>
 {
     /// <summary>

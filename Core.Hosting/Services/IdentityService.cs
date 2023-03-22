@@ -1,8 +1,9 @@
+using DDD.Core.Application;
 using DDD.Core.Utils;
+using Microsoft.AspNetCore.Http;
 
-namespace DDD.Host.Services;
+namespace DDD.Core.Hosting.Services;
 
-//TODO move it to another project
 public class IdentityService : IIdentityService<Guid>
 {
     private readonly IHttpContextAccessor _httpContextAccessor;

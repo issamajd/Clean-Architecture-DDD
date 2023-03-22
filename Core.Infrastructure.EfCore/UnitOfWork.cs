@@ -8,9 +8,9 @@ public class UnitOfWork : IUnitOfWork
     private readonly IDbContext _appDbContext;
     private IDbContextTransaction? _currentTransaction;
 
-    public UnitOfWork(IDbContext appDbContext)
+    public UnitOfWork(IDbContext dbContext)
     {
-        _appDbContext = appDbContext;
+        _appDbContext = dbContext;
     }
 
     public Task BeginAsync() => BeginTransactionAsync();

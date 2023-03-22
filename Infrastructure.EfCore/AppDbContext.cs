@@ -7,7 +7,6 @@ using DDD.PermissionManagement.Infrastructure.EfCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace DDD.Infrastructure.EfCore;
 

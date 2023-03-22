@@ -1,8 +1,6 @@
 using System.Linq.Expressions;
 
 namespace DDD.Core.Domain.Specifications;
-
-//TODO revisit expressions
 internal static class ExpressionExtensions
 {
     private static Expression ReplaceParameter<T>(Expression<Func<T, bool>> expression,

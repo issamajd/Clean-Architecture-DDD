@@ -1,9 +1,10 @@
 using System.IdentityModel.Tokens.Jwt;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using DDD.Core.Application;
 using DDD.Core.Hosting;
-using DDD.Core.Utils;
-using DDD.Host.Services;
+using DDD.Core.Hosting.Services;
+using DDD.Core.Infrastructure.EfCore;
 using DDD.Identity;
 using DDD.Identity.AppUsers;
 using DDD.Infrastructure.EfCore;
@@ -40,16 +41,14 @@ public class Startup
         //autofac container
         var container = new ContainerBuilder();
         container.Populate(services);
-        container.AddCoreServices();
-        container.AddUnitOfWork();
+        container.AddEfCoreUnitOfWork<AppDbContext>();
+        container.AddEfCoreRepositories<AppDbContext>(typeof(IdentityInfrastructureEfCoreModule).Assembly);
 
         container.RegisterModule<IdentityDomainModule>();
         container.RegisterModule<IdentityInfrastructureEfCoreModule>();
         container.RegisterModule<IdentityApplicationModule>();
         
-        var sp = new AutofacServiceProvider(container.Build());
-        return sp;
-        // return new AutofacServiceProvider(container.Build());
+        return new AutofacServiceProvider(container.Build());
     }
 
     public void ConfigureSwagger(IServiceCollection services)
