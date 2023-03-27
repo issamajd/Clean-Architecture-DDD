@@ -13,6 +13,7 @@ public static class AuthorizationExtensionBuilder
     {
         builder.RegisterType<DefaultPermissionStore>()
             .As<IPermissionStore>()
+            .SingleInstance()
             .IfNotRegistered(typeof(IPermissionStore));
         
         builder.RegisterType<PermissionHandler>()
@@ -26,6 +27,7 @@ public static class AuthorizationExtensionBuilder
         builder.RegisterType<PermissionManager>()
             .As<IPermissionCollection>()
             .AsSelf()
+            .SingleInstance()
             .OnActivating(x => Console.WriteLine(x.Instance))
             .AutoActivate();
     }

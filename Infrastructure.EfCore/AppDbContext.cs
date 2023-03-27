@@ -29,7 +29,7 @@ public class AppDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
         base.OnModelCreating(builder);
         builder.UseOpenIddict();
         builder.ConfigureIdentity();
-        // builder.SeedUsersData();
+        builder.SeedUsersData();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -8,6 +8,12 @@ public static class AppDbContextExtensions
 {
     internal static void SeedUsersData(this ModelBuilder builder)
     {
+        var adminRole = new
+        {
+            Id = Guid.NewGuid(),
+            Name = "ADMIN",
+            NormalizedName = "Admin"
+        };
         builder.Entity<IdentityRole<Guid>>().HasData(
             new
             {
@@ -20,13 +26,8 @@ public static class AppDbContextExtensions
                 Id = Guid.NewGuid(),
                 Name = "PROVIDER",
                 NormalizedName = "Provider"
-            },
-            new
-            {
-                Id = Guid.NewGuid(),
-                Name = "ADMIN",
-                NormalizedName = "Admin"
-            });
+            }, adminRole
+        );
         /*
          
         #region Customer seed data
@@ -57,6 +58,12 @@ public static class AppDbContextExtensions
         var admin = new AppUser(Guid.NewGuid(), "admin", "admin@gmail.com");
         admin.PasswordHash = hasher.HashPassword(admin, "test");
         builder.Entity<AppUser>().HasData(admin);
+        builder.Entity<IdentityUserRole<Guid>>().HasData(
+            new
+            {
+                UserId = admin.Id,
+                RoleId = adminRole.Id
+            });
 
         #endregion
     }

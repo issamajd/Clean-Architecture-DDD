@@ -24,4 +24,8 @@
       <ProjectReference Include="..\PermissionManagement.Infrastructure.EfCore\PermissionManagement.Infrastructure.EfCore.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Migrations" />
+    </ItemGroup>
+
 </Project>

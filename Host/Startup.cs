@@ -6,7 +6,9 @@ using DDD.Core.Application;
 using DDD.Core.Hosting;
 using DDD.Core.Hosting.Services;
 using DDD.Identity.AppUsers;
+using DDD.Identity.Module;
 using DDD.Infrastructure.EfCore;
+using DDD.PermissionManagement.Module;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
@@ -35,7 +37,6 @@ public class Startup
         services.AddHttpContextAccessor();
 
         services.AddEndpointsApiExplorer();
-
         ConfigureSwagger(services);
         //autofac container
         var container = new ContainerBuilder();
@@ -45,8 +46,9 @@ public class Startup
         container.AddPermissionProviders();
         container.AddEfCoreUnitOfWork<AppDbContext>();
         container.AddEfCoreRepositories<AppDbContext>();
-        container.AddDomainServices();
-        container.AddApplicationServices();
+        container.RegisterModule<IdentityModule>();
+        container.RegisterModule<PermissionManagementModule>();
+
         return new AutofacServiceProvider(container.Build());
     }
 

@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using DDD.Core.Domain;
 using DDD.Core.Utils;
 using DDD.PermissionManagement.Domain.Shared.PermissionGrants;
@@ -5,12 +6,15 @@ using DDD.PermissionManagement.Domain.Shared.PermissionGrants;
 namespace DDD.PermissionManagement.Domain.PermissionGrants;
 
 public class PermissionGrant : AggregateRoot<Guid>
+
 {
-    public string Name { get; }
+    [MaxLength(256)]
+    public string Name { get; private set; }
 
+    [MaxLength(2)]
     public string HolderName { get; private set; } = null!;
-
-    public string HolderKey { get; }
+    [MaxLength(256)]
+    public string HolderKey { get; private set; }
 
     public void SetHolderName(string holderName)
     {

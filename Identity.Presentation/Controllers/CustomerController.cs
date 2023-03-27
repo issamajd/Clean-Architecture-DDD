@@ -1,3 +1,4 @@
+using DDD.Authorization.AspNetCore;
 using DDD.Identity.Customers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,7 @@ public class CustomerController : ControllerBase
     [Route("change-age")]
     [HttpPost]
     [Authorize(Roles = Roles.Customer)]
+    [Permission("Identity.Customer.Read")]
     public async Task<CustomerDto> ChangeAge(ChangeCustomerAgeDto changeCustomerAgeDto)
     {
         return await _customerAppService.ChangeCustomerAgeAsync(changeCustomerAgeDto);

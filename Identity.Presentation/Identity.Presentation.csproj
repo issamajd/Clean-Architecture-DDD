@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Authorization.AspNetCore\Authorization.AspNetCore.csproj" />
       <ProjectReference Include="..\Identity.Application.Contracts\Identity.Application.Contracts.csproj" />
     </ItemGroup>
 
