@@ -1,18 +1,13 @@
 using System.Reflection;
 using Autofac;
 using DDD.Core.Domain;
+using DDD.Core.Infrastructure.EfCore;
 
-namespace DDD.Core.Infrastructure.EfCore;
+namespace DDD.Core.Hosting;
 
 public static class CoreInfrastructureEfCoreBuilderExtensions
 {
-    public static void AddEfCoreRepositories<TDbContext>(this ContainerBuilder builder, Assembly assembly)
-        where TDbContext : IDbContext
-    {
-        builder.AddEfCoreRepositories<TDbContext>(new[] { assembly });
-    }
-
-    public static void AddEfCoreRepositories<TDbContext>(this ContainerBuilder builder, Assembly[] assemblies)
+    public static void AddEfCoreRepositories<TDbContext>(this ContainerBuilder builder)
         where TDbContext : IDbContext
     {
         var allInterfaces = typeof(TDbContext).GetInterfaces();
@@ -30,7 +25,8 @@ public static class CoreInfrastructureEfCoreBuilderExtensions
             //with IDbContext interface in case the developer didn't add an interface in one of the modules
             .As(directInterfaces.Append(typeof(IDbContext)).ToArray());
 
-        builder.RegisterAssemblyTypes(assemblies)
+        var assemblies = typeof(IRepository<>).Assembly.GetReferencingAssemblies();
+        builder.RegisterAssemblyTypes(assemblies.Select(Assembly.Load).ToArray())
             //create only services out of concrete classes  
             .Where(p => p is { IsGenericType: false })
             .AsClosedTypesOf(typeof(IRepository<>));

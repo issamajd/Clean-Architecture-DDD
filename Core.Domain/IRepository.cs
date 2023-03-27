@@ -48,6 +48,14 @@ public interface IRepository<TEntity> where TEntity : Entity
     /// <summary>Gets total count of all entities.</summary>
     Task<int> GetCountAsync(CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Gets total count of all entities
+    /// </summary>
+    /// <param name="predicate"></param>
+    /// <param name="cancellationToken"></param>
+    Task<int> GetCountAsync(Expression<Func<TEntity, bool>> predicate,
+        CancellationToken cancellationToken = default);
+
     Task<List<TEntity>> GetPagedListAsync(
         int skipCount,
         int maxResultCount,

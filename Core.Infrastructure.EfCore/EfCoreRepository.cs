@@ -75,6 +75,10 @@ public abstract class EfCoreRepository<TEntity, TDbContext> : IRepository<TEntit
     {
         return await _dbContext.Set<TEntity>().CountAsync(cancellationToken: cancellationToken);
     }
+    public async Task<int> GetCountAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.Set<TEntity>().CountAsync(predicate:predicate, cancellationToken: cancellationToken);
+    }
 
     public async Task<List<TEntity>> GetPagedListAsync(int skipCount, int maxResultCount, string sorting,
         bool includeDetails = false,

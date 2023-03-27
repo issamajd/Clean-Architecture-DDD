@@ -4,11 +4,11 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>DDD.Core.Application</RootNamespace>
+        <RootNamespace>DDD.Authorization.Abstractions</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Core.Domain\Core.Domain.csproj" />
+      <ProjectReference Include="..\Core.Utils\Core.Utils.csproj" />
     </ItemGroup>
 
 </Project>

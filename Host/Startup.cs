@@ -1,11 +1,10 @@
 using System.IdentityModel.Tokens.Jwt;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using DDD.Authorization.Hosting;
 using DDD.Core.Application;
 using DDD.Core.Hosting;
 using DDD.Core.Hosting.Services;
-using DDD.Core.Infrastructure.EfCore;
-using DDD.Identity;
 using DDD.Identity.AppUsers;
 using DDD.Infrastructure.EfCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -41,13 +40,13 @@ public class Startup
         //autofac container
         var container = new ContainerBuilder();
         container.Populate(services);
-        container.AddEfCoreUnitOfWork<AppDbContext>();
-        container.AddEfCoreRepositories<AppDbContext>(typeof(IdentityInfrastructureEfCoreModule).Assembly);
 
-        container.RegisterModule<IdentityDomainModule>();
-        container.RegisterModule<IdentityInfrastructureEfCoreModule>();
-        container.RegisterModule<IdentityApplicationModule>();
-        
+        container.AddAuthorizationCoreServices();
+        container.AddPermissionProviders();
+        container.AddEfCoreUnitOfWork<AppDbContext>();
+        container.AddEfCoreRepositories<AppDbContext>();
+        container.AddDomainServices();
+        container.AddApplicationServices();
         return new AutofacServiceProvider(container.Build());
     }
 
