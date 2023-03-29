@@ -6,7 +6,7 @@ namespace DDD.Core.Hosting;
 
 public static class CoreApplicationBuilderExtensions
 {
-    public static void AddApplicationServices(this ContainerBuilder builder)
+    public static void AutoAddApplicationServices(this ContainerBuilder builder)
     {
         var assemblies =  typeof(ApplicationService).Assembly.GetReferencingAssemblies();        
         builder.RegisterAssemblyTypes(assemblies.Select(Assembly.Load).ToArray())

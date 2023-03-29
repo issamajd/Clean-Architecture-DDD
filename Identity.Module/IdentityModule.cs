@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using DDD.Identity.Customers;
+using DDD.Identity.Permissions;
 using DDD.Identity.Providers;
 
 namespace DDD.Identity.Module;
@@ -12,5 +13,10 @@ public class IdentityModule : Autofac.Module
             .As<ICustomerAppService>();
         builder.RegisterType<ProviderAppService>()
             .As<IProviderAppService>();
+        
+        builder.RegisterType<CustomerRepository>()
+            .As<ICustomerRepository>();
+        builder.RegisterType<ProviderRepository>()
+            .As<IProviderRepository>();
     }
 }

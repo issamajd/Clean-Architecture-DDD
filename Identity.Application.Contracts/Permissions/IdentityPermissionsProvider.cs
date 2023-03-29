@@ -2,7 +2,7 @@ using DDD.Authorization.Abstractions.Permissions;
 
 namespace DDD.Identity.Permissions;
 
-public class IdentityPermissionProvider : IPermissionProvider
+public class IdentityPermissionsProvider : IPermissionProvider
 {
     public void Provide(IPermissionCollection permissionCollection)
     {

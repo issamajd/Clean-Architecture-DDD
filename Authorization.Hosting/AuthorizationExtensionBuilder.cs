@@ -33,7 +33,7 @@ public static class AuthorizationExtensionBuilder
     }
 
     
-    public static void AddPermissionProviders(this ContainerBuilder builder)
+    public static void AutoAddPermissionProviders(this ContainerBuilder builder)
     {
         var assemblies = typeof(IPermissionProvider).Assembly.GetReferencingAssemblies();
         builder.RegisterAssemblyTypes(assemblies.Select(Assembly.Load).ToArray())

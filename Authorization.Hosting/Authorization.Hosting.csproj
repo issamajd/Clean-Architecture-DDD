@@ -8,7 +8,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Authorization.Abstractions\Authorization.Abstractions.csproj" />
       <ProjectReference Include="..\Authorization.AspNetCore\Authorization.AspNetCore.csproj" />
       <ProjectReference Include="..\Core.Hosting\Core.Hosting.csproj" />
     </ItemGroup>

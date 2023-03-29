@@ -7,7 +7,7 @@ namespace DDD.Core.Hosting;
 
 public static class CoreInfrastructureEfCoreBuilderExtensions
 {
-    public static void AddEfCoreRepositories<TDbContext>(this ContainerBuilder builder)
+    public static void AutoAddEfCoreRepositories<TDbContext>(this ContainerBuilder builder)
         where TDbContext : IDbContext
     {
         var allInterfaces = typeof(TDbContext).GetInterfaces();
