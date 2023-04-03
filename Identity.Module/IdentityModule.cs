@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DDD.Authorization.Abstractions.Permissions;
 using DDD.Identity.Customers;
 using DDD.Identity.Permissions;
 using DDD.Identity.Providers;
@@ -13,10 +14,15 @@ public class IdentityModule : Autofac.Module
             .As<ICustomerAppService>();
         builder.RegisterType<ProviderAppService>()
             .As<IProviderAppService>();
-        
+
         builder.RegisterType<CustomerRepository>()
             .As<ICustomerRepository>();
         builder.RegisterType<ProviderRepository>()
             .As<IProviderRepository>();
+        
+        builder.RegisterType<IdentityPermissionsProvider>()
+            .SingleInstance()
+            .As<IPermissionProvider>()
+            .AsSelf();
     }
 }

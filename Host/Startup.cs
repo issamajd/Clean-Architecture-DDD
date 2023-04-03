@@ -43,9 +43,9 @@ public class Startup
         container.Populate(services);
 
         container.AddEfCoreUnitOfWork<AppDbContext>();
+        container.AutoAddDbContextServices<AppDbContext>();
+        
         container.AddAuthorizationCoreServices();
-
-        container.AutoAddPermissionProviders();
         // container.AutoAddApplicationServices(); if you want to automatically add application services, you only need to reference the projects
         // container.AutoAddEfCoreRepositories<AppDbContext>(); if you want to automatically add repositories, you only need to reference the projects
         

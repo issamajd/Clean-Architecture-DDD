@@ -1,18 +1,15 @@
+using System.Collections.Immutable;
 using DDD.Core.Utils;
 
 namespace DDD.Authorization.Abstractions.Permissions;
 
 public class PermissionGroup
 {
-    public string Name { get;  }
+    public string Name { get; }
 
     public string DisplayName { get; }
 
     private List<Permission> Permissions { get; }
-
-    public PermissionGroup(PermissionGroup permissionGroup) : this(permissionGroup.Name, permissionGroup.DisplayName)
-    {
-    }
 
     internal PermissionGroup(string name, string? displayName = null)
     {
@@ -20,7 +17,12 @@ public class PermissionGroup
         DisplayName = displayName ?? name;
         Permissions = new List<Permission>();
     }
-
+    /// <summary>
+    /// Add <see cref="Permission"/> to the current group
+    /// </summary>
+    /// <param name="name">Permission Name</param>
+    /// <param name="displayName">Human readable permission name</param>
+    /// <returns>The newly added <see cref="Permission"/></returns>
     public Permission AddPermission(string name, string? displayName = null)
     {
         var permissionDefinition = new Permission(name, displayName: displayName);
@@ -29,17 +31,15 @@ public class PermissionGroup
     }
 
     /// <summary>
-    /// Get all group permissions as new instances of <see cref="Permission"/> 
+    /// Get all permissions with their descendants 
     /// </summary>
-    /// <returns></returns>
-    public IEnumerable<Permission> GetPermissions()
-    {
-        var result = new List<Permission>();
-        Permissions.ForEach(permission =>
-        {
-            result.Add(new Permission(permission));
-            result.AddRange(permission.GetChildrenRecursively());
-        });
-        return result;
-    }
+    /// <returns>Immutable List of <see cref="Permission"/></returns>
+    public IImmutableList<Permission> GetPermissionsWithDescendants() =>
+        Permissions.Concat(Permissions.SelectMany(permission => permission.GetDescendants())).ToImmutableList();
+    /// <summary>
+    /// Get current group permissions 
+    /// </summary>
+    /// <returns>Immutable List of <see cref="Permission"/></returns>
+    public IImmutableList<Permission> GetPermissions() => Permissions.ToImmutableList();
+    
 }

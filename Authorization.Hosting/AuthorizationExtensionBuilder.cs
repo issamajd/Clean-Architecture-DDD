@@ -1,8 +1,7 @@
-﻿using System.Reflection;
-using Autofac;
+﻿using Autofac;
+using Autofac.Core;
 using DDD.Authorization.Abstractions.Permissions;
 using DDD.Authorization.AspNetCore;
-using DDD.Core.Hosting;
 using Microsoft.AspNetCore.Authorization;
 
 namespace DDD.Authorization.Hosting;
@@ -15,11 +14,11 @@ public static class AuthorizationExtensionBuilder
             .As<IPermissionStore>()
             .SingleInstance()
             .IfNotRegistered(typeof(IPermissionStore));
-        
+
         builder.RegisterType<PermissionHandler>()
             .As<IAuthorizationHandler>()
             .SingleInstance();
-        
+
         builder.RegisterType<PermissionPolicyProvider>()
             .As<IAuthorizationPolicyProvider>()
             .SingleInstance();
@@ -28,20 +27,26 @@ public static class AuthorizationExtensionBuilder
             .As<IPermissionCollection>()
             .AsSelf()
             .SingleInstance()
-            .OnActivating(x => Console.WriteLine(x.Instance))
-            .AutoActivate();
-    }
+            .OnActivating(x =>
+            {
+                var permissionManager = x.Instance;
+                foreach (var componentRegistration in x.Context.ComponentRegistry.RegistrationsFor(
+                             new TypedService(typeof(IPermissionProvider))))
+                {
+                    if (x.Context.TryResolveService(new TypedService(componentRegistration.Activator.LimitType),
+                            out var permissionProvider))
+                    {
+                        (permissionProvider as IPermissionProvider)!.Provide(permissionManager);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException(
+                            $"The service {componentRegistration.Activator.LimitType} is not registered AsSelf");
+                    }
+                }
 
-    
-    public static void AutoAddPermissionProviders(this ContainerBuilder builder)
-    {
-        var assemblies = typeof(IPermissionProvider).Assembly.GetReferencingAssemblies();
-        builder.RegisterAssemblyTypes(assemblies.Select(Assembly.Load).ToArray())
-            .Where(p => typeof(IPermissionProvider).IsAssignableFrom(p))
-            .As<IPermissionProvider>()
-            .OnActivating(x => 
-                (x.Instance as IPermissionProvider)!.Provide(x.Context.Resolve<IPermissionCollection>()))
-            .SingleInstance()
+                permissionManager.CheckPermissionsForDuplicates();
+            })
             .AutoActivate();
     }
 }

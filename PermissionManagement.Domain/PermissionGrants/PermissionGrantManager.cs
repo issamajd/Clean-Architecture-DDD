@@ -35,9 +35,4 @@ public class PermissionGrantManager : IDomainService
         //     || holderName == PermissionGrantConsts.User && await _userManager.FindByIdAsync(holderKey) != null)
         // throw new HolderNotFoundException($"Holder name {holderName} with key ${holderKey} not found");
     }
-
-    public Task RevokePermission(string permissionName, string holderName, string holderKey)
-        => _permissionGrantRepository.DeleteAsync(
-            new EqualityPermissionGrantSpecification(
-                new PermissionGrant(permissionName, holderName, holderKey)));
 }

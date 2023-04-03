@@ -12,7 +12,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\PermissionManagement.Application\PermissionManagement.Application.csproj" />
       <ProjectReference Include="..\PermissionManagement.Infrastructure.EfCore\PermissionManagement.Infrastructure.EfCore.csproj" />
+      <ProjectReference Include="..\PermissionManagement.Presentation\PermissionManagement.Presentation.csproj" />
     </ItemGroup>
 
 </Project>

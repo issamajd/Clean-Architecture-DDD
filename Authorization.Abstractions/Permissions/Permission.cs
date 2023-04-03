@@ -1,20 +1,17 @@
+using System.Collections.Immutable;
 using DDD.Core.Utils;
 
 namespace DDD.Authorization.Abstractions.Permissions;
 
 public class Permission
 {
-    public string Name { get; set; }
+    public string Name { get; }
 
-    public string? ParentName { get; set; }
+    public string? ParentName { get; }
 
-    public string DisplayName { get; set; }
+    public string DisplayName { get; }
 
     private List<Permission> Children { get; }
-
-    public Permission(Permission permission) : this(permission.Name, permission.ParentName, permission.DisplayName)
-    {
-    }
 
     internal Permission(string name, string? parentName = null, string? displayName = null)
     {
@@ -26,26 +23,38 @@ public class Permission
 
     public Permission AddChild(string name, string? displayName = null)
     {
-        var permission = new Permission(name, displayName: displayName);
+        var permission = new Permission(name, Name, displayName: displayName);
         Children.Add(permission);
         return permission;
     }
 
     /// <summary>
-    /// Get current permission children as new <see cref="Permission"/> instances
+    /// Get current permission descendants immutable list
     /// </summary>
-    /// <returns></returns>
-    public IEnumerable<Permission> GetChildrenRecursively()
+    /// <returns>Immutable list of <see cref="Permission"/></returns>
+    public IImmutableList<Permission> GetDescendants()
     {
-        if (Children.Count == 0)
-            return Array.Empty<Permission>();
-
-        var descendents = new List<Permission>();
-        Children.ForEach(permission =>
+        var descendants = new List<Permission>(Children);
+        var visited = new HashSet<string>();
+        int currentDescendantsCount;
+        do
         {
-            descendents.Add(new Permission(permission));
-            descendents.AddRange(permission.GetChildrenRecursively());
-        });
-        return descendents;
+            currentDescendantsCount = descendants.Count;
+            var unvisitedDescendants =
+                descendants.Where(predicateDescendant => !visited.Contains(predicateDescendant.Name)).ToList();
+            foreach (var descendant in unvisitedDescendants)
+            {
+                visited.Add(descendant.Name);
+                descendants.AddRange(descendant.Children);
+            }
+        } while (descendants.Count > currentDescendantsCount);
+
+        return descendants.ToImmutableList();
     }
+
+    /// <summary>
+    /// return the direct children as immutable list
+    /// </summary>
+    /// <returns>Immutable list of <see cref="Permission"/></returns>
+    public IImmutableList<Permission> GetChildren() => Children.ToImmutableList();
 }
