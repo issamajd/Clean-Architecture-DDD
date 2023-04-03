@@ -27,13 +27,13 @@ public interface IRepository<TEntity> where TEntity : Entity
     /// <summary>
     /// Get a single entity by the given <paramref name="predicate" />.
     /// <para>
-    /// It throws <see cref="T:DDD.Identity.SeedWork.EntityNotFoundException" /> if there is no entity with the given <paramref name="predicate" />.
-    /// It throws <see cref="T:System.InvalidOperationException" /> if there are multiple entities with the given <paramref name="predicate" />.
+    /// It throws <see cref="EntityNotFoundException" /> if there is no entity with the given <paramref name="predicate" />.
+    /// It throws <see cref="InvalidOperationException" /> if there are multiple entities with the given <paramref name="predicate" />.
     /// </para>
     /// </summary>
     /// <param name="predicate">A condition to filter entities</param>
     /// <param name="includeDetails">Set true to include all children of this entity</param>
-    /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+    /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
     Task<TEntity> GetAsync(
         Expression<Func<TEntity, bool>> predicate,
         bool includeDetails = true,
