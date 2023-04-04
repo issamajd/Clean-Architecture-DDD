@@ -139,6 +139,7 @@ public class Startup
 
         app.UseAuthentication();
         app.UseAuthorization();
+        app.UseExceptionHandling();
         app.UseUnitOfWork();
 
         app.UseEndpoints(endpoints =>

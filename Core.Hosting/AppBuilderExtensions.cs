@@ -66,4 +66,8 @@ public static class AppBuilderExtensions
     {
         return app.UseMiddleware<UnitOfWorkMiddleware>();
     }
+    public static IApplicationBuilder UseExceptionHandling(this IApplicationBuilder app)
+    {
+        return app.UseMiddleware<ExceptionHandlerMiddleware>();
+    }
 }
