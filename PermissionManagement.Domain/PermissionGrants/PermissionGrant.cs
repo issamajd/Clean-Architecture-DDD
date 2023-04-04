@@ -12,12 +12,12 @@ public class PermissionGrant : AggregateRoot<Guid>
 
 {
     [MaxLength(256)]
-    public string Name { get; } = null!;
+    public string Name { get; private set; } = null!;
 
     [MaxLength(2)]
     public string HolderName { get; private set; } = null!;
     [MaxLength(256)]
-    public string HolderKey { get; } = null!;
+    public string HolderKey { get; private set; } = null!;
 
     /// <summary>
     /// Sets the holder name of the permission.
