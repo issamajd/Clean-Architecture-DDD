@@ -1,5 +1,3 @@
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using DDD.Identity.AppUsers;
 using Microsoft.AspNetCore.Identity;
 using OpenIddict.Abstractions;
@@ -15,7 +13,7 @@ public class Startup
 
     public IConfiguration Configuration { get; }
 
-    public virtual IServiceProvider ConfigureServices(IServiceCollection services)
+    public void ConfigureServices(IServiceCollection services)
     {
         services.AddDbContext<AuthServerDbContext>();
         services.AddIdentity<AppUser, IdentityRole<Guid>>()
@@ -39,11 +37,6 @@ public class Startup
 
         services.AddControllersWithViews();
         services.AddHostedService<Worker>();
-
-        //autofac container
-        var container = new ContainerBuilder();
-        container.Populate(services);
-        return new AutofacServiceProvider(container.Build());
     }
 
     public void ConfigureAuth(IServiceCollection services)
@@ -119,7 +112,7 @@ public class Startup
             });
     }
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         if (env.IsDevelopment())
         {

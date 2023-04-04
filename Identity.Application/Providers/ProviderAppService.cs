@@ -1,8 +1,8 @@
 using DDD.Core.Application;
-using DDD.Core.Utils;
 using DDD.Identity.AppUsers;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 
 namespace DDD.Identity.Providers;
 
@@ -11,14 +11,17 @@ public class ProviderAppService : ApplicationService, IProviderAppService
     private readonly IProviderRepository _providerRepository;
     private readonly IIdentityService<Guid> _identityService;
     private readonly UserManager<AppUser> _userManager;
+    private readonly ILogger<ProviderAppService> _logger;
 
     public ProviderAppService(IProviderRepository providerRepository,
         IIdentityService<Guid> identityService,
-        UserManager<AppUser> userManager)
+        UserManager<AppUser> userManager,
+        ILogger<ProviderAppService> logger)
     {
         _providerRepository = providerRepository;
         _identityService = identityService;
         _userManager = userManager;
+        _logger = logger;
     }
 
     public async Task<ProviderDto> GetAsync(Guid id)

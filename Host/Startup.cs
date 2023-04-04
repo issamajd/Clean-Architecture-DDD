@@ -1,6 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
 using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using DDD.Authorization.Hosting;
 using DDD.Core.Application;
 using DDD.Core.Hosting;
@@ -24,7 +23,7 @@ public class Startup
 
     public IConfiguration Configuration { get; }
 
-    public virtual IServiceProvider ConfigureServices(IServiceCollection services)
+    public void ConfigureServices(IServiceCollection services)
     {
         services.AddDbContext<AppDbContext>();
         services.AddIdentity<AppUser, IdentityRole<Guid>>()
@@ -38,21 +37,17 @@ public class Startup
 
         services.AddEndpointsApiExplorer();
         ConfigureSwagger(services);
-        //autofac container
-        var container = new ContainerBuilder();
-        container.Populate(services);
+    }
 
+    public void ConfigureContainer(ContainerBuilder container)
+    {
         container.AddEfCoreUnitOfWork<AppDbContext>();
         container.AutoAddDbContextServices<AppDbContext>();
-        
         container.AddAuthorizationCoreServices();
         // container.AutoAddApplicationServices(); if you want to automatically add application services, you only need to reference the projects
         // container.AutoAddEfCoreRepositories<AppDbContext>(); if you want to automatically add repositories, you only need to reference the projects
-        
         container.RegisterModule<IdentityModule>();
         container.RegisterModule<PermissionManagementModule>();
-
-        return new AutofacServiceProvider(container.Build());
     }
 
     public void ConfigureSwagger(IServiceCollection services)
@@ -122,7 +117,7 @@ public class Startup
         services.AddAuthorization();
     }
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         if (env.IsDevelopment())
         {

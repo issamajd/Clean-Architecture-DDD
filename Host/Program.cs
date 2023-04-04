@@ -1,8 +1,24 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using DDD.Host;
-using Microsoft.AspNetCore;
+using Serilog;
 
-var app =
-    WebHost.CreateDefaultBuilder(args)
-        .UseStartup<Startup>().Build();
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateLogger();
 
+Log.Information("Starting web app {AppName}", AppDomain.CurrentDomain.FriendlyName);
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Host
+    .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .UseSerilog();
+var startup = new Startup(builder.Configuration);
+
+startup.ConfigureServices(builder.Services);
+builder.Host.ConfigureContainer<ContainerBuilder>(startup.ConfigureContainer);
+
+var app = builder.Build();
+startup.Configure(app, app.Environment);
 app.Run();

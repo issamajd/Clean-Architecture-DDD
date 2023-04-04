@@ -2,6 +2,7 @@ using DDD.Core.Application;
 using DDD.Identity.AppUsers;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 
 namespace DDD.Identity.Customers;
 
@@ -10,15 +11,18 @@ public class CustomerAppService : ApplicationService, ICustomerAppService
     private readonly ICustomerRepository _customerRepository;
     private readonly UserManager<AppUser> _userManager;
     private readonly IIdentityService<Guid> _identityService;
+    private readonly ILogger<CustomerAppService> _logger;
 
     public CustomerAppService(
         ICustomerRepository customerRepository,
         UserManager<AppUser> userManager,
-        IIdentityService<Guid> identityService)
+        IIdentityService<Guid> identityService,
+        ILogger<CustomerAppService> logger)
     {
         _customerRepository = customerRepository;
         _userManager = userManager;
         _identityService = identityService;
+        _logger = logger;
     }
 
     public async Task<CustomerDto> GetAsync(Guid id)

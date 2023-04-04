@@ -2,6 +2,7 @@ using DDD.Authorization.Abstractions.Permissions;
 using DDD.PermissionManagement.Application.Contracts.PermissionGrants;
 using DDD.PermissionManagement.Domain.PermissionGrants;
 using Mapster;
+using Microsoft.Extensions.Logging;
 
 namespace DDD.PermissionManagement.Application.PermissionGrants;
 
@@ -10,19 +11,23 @@ public class PermissionGrantAppService : IPermissionGrantAppService
     private readonly PermissionManager _permissionManager;
     private readonly IPermissionGrantRepository _permissionGrantRepository;
     private readonly PermissionGrantManager _permissionGrantManager;
+    private readonly ILogger<PermissionGrantAppService> _logger;
 
     public PermissionGrantAppService(PermissionManager permissionManager,
         IPermissionGrantRepository permissionGrantRepository,
-        PermissionGrantManager permissionGrantManager)
+        PermissionGrantManager permissionGrantManager,
+        ILogger<PermissionGrantAppService> logger)
     {
         _permissionManager = permissionManager;
         _permissionGrantRepository = permissionGrantRepository;
         _permissionGrantManager = permissionGrantManager;
+        _logger = logger;
     }
 
 
     public async Task<GetPermissionGrantsDto> GetPermissionGrantsAsync(string holderKey, string holderName)
     {
+        _logger.LogInformation("Get all permissions grants for {holderKey}/{holderName}", holderKey,holderName);
         // Get a list of permission grants for the specified permission holder.
         var permissionsGrants = await _permissionGrantRepository.GetListAsync(
             new HolderPermissionGrantsSpecification(holderKey, holderName));
@@ -56,6 +61,7 @@ public class PermissionGrantAppService : IPermissionGrantAppService
 
     public Task<GetPermissionsGroupsDto> GetPermissionsGroupsAsync()
     {
+        _logger.LogInformation("Get all permissions groups with permissions descendants");
         // Get a list of permission groups.
         var groups = _permissionManager.GetGroups();
 
@@ -81,6 +87,7 @@ public class PermissionGrantAppService : IPermissionGrantAppService
 
     public async Task UpdatePermissionGrants(UpdatePermissionGrantsDto updatePermissionGrantsDto)
     {
+        _logger.LogInformation("set new permissions grants list for ${holderKey}/${holderName}", updatePermissionGrantsDto.HolderKey, updatePermissionGrantsDto.HolderName);
         // Get a list of permission grants for the specified permission holder.
         var permissionsGrants = await _permissionGrantRepository.GetListAsync(
             new HolderPermissionGrantsSpecification(updatePermissionGrantsDto.HolderKey,
