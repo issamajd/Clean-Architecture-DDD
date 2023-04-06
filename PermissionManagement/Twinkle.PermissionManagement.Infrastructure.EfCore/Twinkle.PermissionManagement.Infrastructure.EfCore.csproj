@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace />
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\SeedWork\Twinkle.SeedWork.Infrastructure.EfCore\Twinkle.SeedWork.Infrastructure.EfCore.csproj" />
+      <ProjectReference Include="..\Twinkle.PermissionManagement.Domain\Twinkle.PermissionManagement.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.2" />
+    </ItemGroup>
+
+</Project>

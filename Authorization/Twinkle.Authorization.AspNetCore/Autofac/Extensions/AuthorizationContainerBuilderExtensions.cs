@@ -1,12 +1,11 @@
-﻿using Autofac;
-using Autofac.Core;
-using DDD.Authorization.Abstractions.Permissions;
-using DDD.Authorization.AspNetCore;
+﻿using Autofac.Core;
 using Microsoft.AspNetCore.Authorization;
+using Twinkle.Authorization.Abstractions.Permissions;
+using Twinkle.Authorization.AspNetCore;
 
-namespace DDD.Authorization.Hosting;
+namespace Autofac.Extensions;
 
-public static class AuthorizationExtensionBuilder
+public static class AuthorizationContainerBuilderExtensions
 {
     public static void AddAuthorizationCoreServices(this ContainerBuilder builder)
     {

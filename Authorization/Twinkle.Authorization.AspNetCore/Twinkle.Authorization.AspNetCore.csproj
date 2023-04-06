@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace />
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\PermissionManagement\Twinkle.PermissionManagement.Domain\Twinkle.PermissionManagement.Domain.csproj" />
+      <ProjectReference Include="..\Twinkle.Authorization.Abstractions\Twinkle.Authorization.Abstractions.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.2" />
+      <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.2" />
+    </ItemGroup>
+
+</Project>

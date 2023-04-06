@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace />
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Twinkle.PermissionManagement.Application\Twinkle.PermissionManagement.Application.csproj" />
+      <ProjectReference Include="..\Twinkle.PermissionManagement.Infrastructure.EfCore\Twinkle.PermissionManagement.Infrastructure.EfCore.csproj" />
+      <ProjectReference Include="..\Twinkle.PermissionManagement.Presentation\Twinkle.PermissionManagement.Presentation.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace />
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Authorization\Twinkle.Authorization.Abstractions\Twinkle.Authorization.Abstractions.csproj" />
+      <ProjectReference Include="..\Twinkle.PermissionManagement.Application.Contracts\Twinkle.PermissionManagement.Application.Contracts.csproj" />
+      <ProjectReference Include="..\Twinkle.PermissionManagement.Domain\Twinkle.PermissionManagement.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Mapster" Version="7.3.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Twinkle\PermissionManagement\Application" />
+    </ItemGroup>
+
+</Project>
