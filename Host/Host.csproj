@@ -8,8 +8,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Authorization.Hosting\Authorization.Hosting.csproj" />
-      <ProjectReference Include="..\Identity.Module\Identity.Module.csproj" />
       <ProjectReference Include="..\Identity\Twinkle.Identity.Module\Twinkle.Identity.Module.csproj" />
       <ProjectReference Include="..\Infrastructure.EfCore\Infrastructure.EfCore.csproj" />
       <ProjectReference Include="..\PermissionManagement\Twinkle.PermissionManagement.Module\Twinkle.PermissionManagement.Module.csproj" />

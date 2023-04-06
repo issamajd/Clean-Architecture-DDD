@@ -20,7 +20,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Identity.Infrastructure.EfCore\Identity.Infrastructure.EfCore.csproj" />
       <ProjectReference Include="..\Identity\Twinkle.Identity.Domain\Twinkle.Identity.Domain.csproj" />
       <ProjectReference Include="..\Identity\Twinkle.Identity.Infrastructure.EfCore\Twinkle.Identity.Infrastructure.EfCore.csproj" />
       <ProjectReference Include="..\PermissionManagement\Twinkle.PermissionManagement.Infrastructure.EfCore\Twinkle.PermissionManagement.Infrastructure.EfCore.csproj" />
