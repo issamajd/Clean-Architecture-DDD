@@ -2,61 +2,65 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "Host\Host.csproj", "{D5C9250A-5108-49F9-A1E1-5F591E5E4170}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Infrastructure.EfCore", "Identity.Infrastructure.EfCore\Identity.Infrastructure.EfCore.csproj", "{BC07F466-D6C4-4D3A-A4AA-35DEA57F5615}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.Identity.Infrastructure.EfCore", "Identity\Twinkle.Identity.Infrastructure.EfCore\Twinkle.Identity.Infrastructure.EfCore.csproj", "{BC07F466-D6C4-4D3A-A4AA-35DEA57F5615}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Domain", "Identity.Domain\Identity.Domain.csproj", "{26F55605-FB0E-4533-B18F-668E7C78C6B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.Identity.Domain", "Identity\Twinkle.Identity.Domain\Twinkle.Identity.Domain.csproj", "{26F55605-FB0E-4533-B18F-668E7C78C6B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Application", "Identity.Application\Identity.Application.csproj", "{0F26C6C9-275D-4439-B7F3-C187962EFB30}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.Identity.Application", "Identity\Twinkle.Identity.Application\Twinkle.Identity.Application.csproj", "{0F26C6C9-275D-4439-B7F3-C187962EFB30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Application.Contracts", "Identity.Application.Contracts\Identity.Application.Contracts.csproj", "{F931E8E9-9D15-434A-98B0-75B15B1BA672}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.Identity.Application.Contracts", "Identity\Twinkle.Identity.Application.Contracts\Twinkle.Identity.Application.Contracts.csproj", "{F931E8E9-9D15-434A-98B0-75B15B1BA672}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.AuthServer", "Identity.AuthServer\Identity.AuthServer.csproj", "{120B100C-70A3-4305-BEAE-E108EC2A2C19}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.Identity.AuthServer", "Identity\Twinkle.Identity.AuthServer\Twinkle.Identity.AuthServer.csproj", "{120B100C-70A3-4305-BEAE-E108EC2A2C19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Domain.Shared", "Identity.Domain.Shared\Identity.Domain.Shared.csproj", "{01D524EA-444B-4ECD-89ED-4ED3CF285082}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.SeedWork.Domain", "SeedWork\Twinkle.SeedWork.Domain\Twinkle.SeedWork.Domain.csproj", "{403623CD-B74A-44A2-AA16-9226A0F9DE01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Domain", "Core.Domain\Core.Domain.csproj", "{403623CD-B74A-44A2-AA16-9226A0F9DE01}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PermissionManagement.Domain.Shared", "PermissionManagement.Domain.Shared\PermissionManagement.Domain.Shared.csproj", "{C630409B-26EE-47A3-8483-6F65EAB3080D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.PermissionManagement.Domain.Shared", "PermissionManagement\Twinkle.PermissionManagement.Domain.Shared\Twinkle.PermissionManagement.Domain.Shared.csproj", "{C630409B-26EE-47A3-8483-6F65EAB3080D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PermissionManagement", "PermissionManagement", "{629D94A3-D0CC-4ABE-AF59-7C75567781DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PermissionManagement.Domain", "PermissionManagement.Domain\PermissionManagement.Domain.csproj", "{937A33DF-F809-4831-9D58-BA3F998208E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.PermissionManagement.Domain", "PermissionManagement\Twinkle.PermissionManagement.Domain\Twinkle.PermissionManagement.Domain.csproj", "{937A33DF-F809-4831-9D58-BA3F998208E9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{A07C1D68-54A6-4EC7-8F4C-DED888FC5FD0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{3294E5E1-E1E7-4696-BACE-31BBC7F03B52}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SeedWork", "SeedWork", "{3294E5E1-E1E7-4696-BACE-31BBC7F03B52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Utils", "Core.Utils\Core.Utils.csproj", "{F03754FC-D779-44A6-8999-D474477D48DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.SeedWork.Utils", "SeedWork\Twinkle.SeedWork.Utils\Twinkle.SeedWork.Utils.csproj", "{F03754FC-D779-44A6-8999-D474477D48DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PermissionManagement.Infrastructure.EfCore", "PermissionManagement.Infrastructure.EfCore\PermissionManagement.Infrastructure.EfCore.csproj", "{C88F98D9-3989-444A-AB09-F7D131893B73}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.PermissionManagement.Infrastructure.EfCore", "PermissionManagement\Twinkle.PermissionManagement.Infrastructure.EfCore\Twinkle.PermissionManagement.Infrastructure.EfCore.csproj", "{C88F98D9-3989-444A-AB09-F7D131893B73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Infrastructure.EfCore", "Core.Infrastructure.EfCore\Core.Infrastructure.EfCore.csproj", "{EFC871E6-1FEB-4428-8039-C3D93921A493}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.SeedWork.Infrastructure.EfCore", "SeedWork\Twinkle.SeedWork.Infrastructure.EfCore\Twinkle.SeedWork.Infrastructure.EfCore.csproj", "{EFC871E6-1FEB-4428-8039-C3D93921A493}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Application", "Core.Application\Core.Application.csproj", "{ABB83A47-A543-43CE-B4F1-6ECB581AD8FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.SeedWork.Application", "SeedWork\Twinkle.SeedWork.Application\Twinkle.SeedWork.Application.csproj", "{ABB83A47-A543-43CE-B4F1-6ECB581AD8FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Hosting", "Core.Hosting\Core.Hosting.csproj", "{EDBCF0B4-CA0F-4F40-81DE-A1F41C2D49FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.SeedWork.AspNetCore", "SeedWork\Twinkle.SeedWork.AspNetCore\Twinkle.SeedWork.AspNetCore.csproj", "{EDBCF0B4-CA0F-4F40-81DE-A1F41C2D49FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Presentation", "Identity.Presentation\Identity.Presentation.csproj", "{A55C5971-0715-491C-9651-46B2EC5B140E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.Identity.Presentation", "Identity\Twinkle.Identity.Presentation\Twinkle.Identity.Presentation.csproj", "{A55C5971-0715-491C-9651-46B2EC5B140E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EfCore", "Infrastructure.EfCore\Infrastructure.EfCore.csproj", "{05AB14E0-81E9-4FCB-9D56-88C8D795D7FF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authorization", "Authorization", "{32E1B215-8B94-4517-83CC-3C39DE73FEDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorization.Abstractions", "Authorization.Abstractions\Authorization.Abstractions.csproj", "{1552D909-D918-4622-A57D-0C5FD4641322}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.Authorization.Abstractions", "Authorization\Twinkle.Authorization.Abstractions\Twinkle.Authorization.Abstractions.csproj", "{1552D909-D918-4622-A57D-0C5FD4641322}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorization.AspNetCore", "Authorization.AspNetCore\Authorization.AspNetCore.csproj", "{359DBB4D-8F49-4489-AD3D-D5C94D7D1537}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.Authorization.AspNetCore", "Authorization\Twinkle.Authorization.AspNetCore\Twinkle.Authorization.AspNetCore.csproj", "{359DBB4D-8F49-4489-AD3D-D5C94D7D1537}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorization.Hosting", "Authorization.Hosting\Authorization.Hosting.csproj", "{D6FABEE7-AF0A-4821-B74A-634F28796969}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.Identity.Module", "Identity\Twinkle.Identity.Module\Twinkle.Identity.Module.csproj", "{057E762D-30E5-4A52-A9B2-AA7E6129C7AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Module", "Identity.Module\Identity.Module.csproj", "{057E762D-30E5-4A52-A9B2-AA7E6129C7AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.PermissionManagement.Module", "PermissionManagement\Twinkle.PermissionManagement.Module\Twinkle.PermissionManagement.Module.csproj", "{780044AE-F905-4C1E-8AA9-2F7AFFB6D6DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PermissionManagement.Module", "PermissionManagement.Module\PermissionManagement.Module.csproj", "{780044AE-F905-4C1E-8AA9-2F7AFFB6D6DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.PermissionManagement.Application", "PermissionManagement\Twinkle.PermissionManagement.Application\Twinkle.PermissionManagement.Application.csproj", "{00A6D06D-46C7-4EA1-B03F-B0CA6BAC9773}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PermissionManagement.Application", "PermissionManagement.Application\PermissionManagement.Application.csproj", "{00A6D06D-46C7-4EA1-B03F-B0CA6BAC9773}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.PermissionManagement.Application.Contracts", "PermissionManagement\Twinkle.PermissionManagement.Application.Contracts\Twinkle.PermissionManagement.Application.Contracts.csproj", "{6C330928-7F7C-482A-AE55-AC2ED6FCA96A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PermissionManagement.Application.Contracts", "PermissionManagement.Application.Contracts\PermissionManagement.Application.Contracts.csproj", "{6C330928-7F7C-482A-AE55-AC2ED6FCA96A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.PermissionManagement.Presentation", "PermissionManagement\Twinkle.PermissionManagement.Presentation\Twinkle.PermissionManagement.Presentation.csproj", "{9BB48F8F-B9EB-453F-9FA6-0F98165F2C73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PermissionManagement.Presentation", "PermissionManagement.Presentation\PermissionManagement.Presentation.csproj", "{9BB48F8F-B9EB-453F-9FA6-0F98165F2C73}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Auditing", "Auditing", "{B992E8D6-AE5D-42D7-AE72-A6EDF363271F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.Auditing.Module", "Auditing\Twinkle.Auditing.Module\Twinkle.Auditing.Module.csproj", "{5F1F31ED-C10C-4FA5-9128-6EC345C8FD2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.Auditing.Domain", "Auditing\Twinkle.Auditing.Domain\Twinkle.Auditing.Domain.csproj", "{0903AE63-D83B-440F-8E01-66C5975E3C04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.Auditing.Infrastructure.EfCore", "Auditing\Twinkle.Auditing.Infrastructure.EfCore\Twinkle.Auditing.Infrastructure.EfCore.csproj", "{D499D6B5-C277-4995-BCD7-FB7C042A9D4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,10 +92,6 @@ Global
 		{120B100C-70A3-4305-BEAE-E108EC2A2C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{120B100C-70A3-4305-BEAE-E108EC2A2C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{120B100C-70A3-4305-BEAE-E108EC2A2C19}.Release|Any CPU.Build.0 = Release|Any CPU
-		{01D524EA-444B-4ECD-89ED-4ED3CF285082}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{01D524EA-444B-4ECD-89ED-4ED3CF285082}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{01D524EA-444B-4ECD-89ED-4ED3CF285082}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{01D524EA-444B-4ECD-89ED-4ED3CF285082}.Release|Any CPU.Build.0 = Release|Any CPU
 		{403623CD-B74A-44A2-AA16-9226A0F9DE01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{403623CD-B74A-44A2-AA16-9226A0F9DE01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{403623CD-B74A-44A2-AA16-9226A0F9DE01}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -140,10 +140,6 @@ Global
 		{359DBB4D-8F49-4489-AD3D-D5C94D7D1537}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{359DBB4D-8F49-4489-AD3D-D5C94D7D1537}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{359DBB4D-8F49-4489-AD3D-D5C94D7D1537}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D6FABEE7-AF0A-4821-B74A-634F28796969}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D6FABEE7-AF0A-4821-B74A-634F28796969}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D6FABEE7-AF0A-4821-B74A-634F28796969}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D6FABEE7-AF0A-4821-B74A-634F28796969}.Release|Any CPU.Build.0 = Release|Any CPU
 		{057E762D-30E5-4A52-A9B2-AA7E6129C7AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{057E762D-30E5-4A52-A9B2-AA7E6129C7AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{057E762D-30E5-4A52-A9B2-AA7E6129C7AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -164,6 +160,18 @@ Global
 		{9BB48F8F-B9EB-453F-9FA6-0F98165F2C73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BB48F8F-B9EB-453F-9FA6-0F98165F2C73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BB48F8F-B9EB-453F-9FA6-0F98165F2C73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F1F31ED-C10C-4FA5-9128-6EC345C8FD2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F1F31ED-C10C-4FA5-9128-6EC345C8FD2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F1F31ED-C10C-4FA5-9128-6EC345C8FD2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F1F31ED-C10C-4FA5-9128-6EC345C8FD2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0903AE63-D83B-440F-8E01-66C5975E3C04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0903AE63-D83B-440F-8E01-66C5975E3C04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0903AE63-D83B-440F-8E01-66C5975E3C04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0903AE63-D83B-440F-8E01-66C5975E3C04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D499D6B5-C277-4995-BCD7-FB7C042A9D4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D499D6B5-C277-4995-BCD7-FB7C042A9D4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D499D6B5-C277-4995-BCD7-FB7C042A9D4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D499D6B5-C277-4995-BCD7-FB7C042A9D4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{937A33DF-F809-4831-9D58-BA3F998208E9} = {629D94A3-D0CC-4ABE-AF59-7C75567781DC}
@@ -172,7 +180,6 @@ Global
 		{F931E8E9-9D15-434A-98B0-75B15B1BA672} = {A07C1D68-54A6-4EC7-8F4C-DED888FC5FD0}
 		{120B100C-70A3-4305-BEAE-E108EC2A2C19} = {A07C1D68-54A6-4EC7-8F4C-DED888FC5FD0}
 		{26F55605-FB0E-4533-B18F-668E7C78C6B3} = {A07C1D68-54A6-4EC7-8F4C-DED888FC5FD0}
-		{01D524EA-444B-4ECD-89ED-4ED3CF285082} = {A07C1D68-54A6-4EC7-8F4C-DED888FC5FD0}
 		{BC07F466-D6C4-4D3A-A4AA-35DEA57F5615} = {A07C1D68-54A6-4EC7-8F4C-DED888FC5FD0}
 		{403623CD-B74A-44A2-AA16-9226A0F9DE01} = {3294E5E1-E1E7-4696-BACE-31BBC7F03B52}
 		{F03754FC-D779-44A6-8999-D474477D48DB} = {3294E5E1-E1E7-4696-BACE-31BBC7F03B52}
@@ -183,11 +190,13 @@ Global
 		{A55C5971-0715-491C-9651-46B2EC5B140E} = {A07C1D68-54A6-4EC7-8F4C-DED888FC5FD0}
 		{1552D909-D918-4622-A57D-0C5FD4641322} = {32E1B215-8B94-4517-83CC-3C39DE73FEDA}
 		{359DBB4D-8F49-4489-AD3D-D5C94D7D1537} = {32E1B215-8B94-4517-83CC-3C39DE73FEDA}
-		{D6FABEE7-AF0A-4821-B74A-634F28796969} = {32E1B215-8B94-4517-83CC-3C39DE73FEDA}
 		{057E762D-30E5-4A52-A9B2-AA7E6129C7AA} = {A07C1D68-54A6-4EC7-8F4C-DED888FC5FD0}
 		{780044AE-F905-4C1E-8AA9-2F7AFFB6D6DB} = {629D94A3-D0CC-4ABE-AF59-7C75567781DC}
 		{00A6D06D-46C7-4EA1-B03F-B0CA6BAC9773} = {629D94A3-D0CC-4ABE-AF59-7C75567781DC}
 		{6C330928-7F7C-482A-AE55-AC2ED6FCA96A} = {629D94A3-D0CC-4ABE-AF59-7C75567781DC}
 		{9BB48F8F-B9EB-453F-9FA6-0F98165F2C73} = {629D94A3-D0CC-4ABE-AF59-7C75567781DC}
+		{5F1F31ED-C10C-4FA5-9128-6EC345C8FD2C} = {B992E8D6-AE5D-42D7-AE72-A6EDF363271F}
+		{0903AE63-D83B-440F-8E01-66C5975E3C04} = {B992E8D6-AE5D-42D7-AE72-A6EDF363271F}
+		{D499D6B5-C277-4995-BCD7-FB7C042A9D4A} = {B992E8D6-AE5D-42D7-AE72-A6EDF363271F}
 	EndGlobalSection
 EndGlobal

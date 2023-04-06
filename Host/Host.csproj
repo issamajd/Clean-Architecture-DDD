@@ -4,14 +4,16 @@
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <RootNamespace>DDD.Host</RootNamespace>
+        <RootNamespace>Host</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Authorization.Hosting\Authorization.Hosting.csproj" />
       <ProjectReference Include="..\Identity.Module\Identity.Module.csproj" />
+      <ProjectReference Include="..\Identity\Twinkle.Identity.Module\Twinkle.Identity.Module.csproj" />
       <ProjectReference Include="..\Infrastructure.EfCore\Infrastructure.EfCore.csproj" />
-      <ProjectReference Include="..\PermissionManagement.Module\PermissionManagement.Module.csproj" />
+      <ProjectReference Include="..\PermissionManagement\Twinkle.PermissionManagement.Module\Twinkle.PermissionManagement.Module.csproj" />
+      <ProjectReference Include="..\SeedWork\Twinkle.SeedWork.AspNetCore\Twinkle.SeedWork.AspNetCore.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,4 +1,4 @@
-namespace DDD.Infrastructure.EfCore;
+namespace Infrastructure.EfCore;
 //TODO change it to migrator
 public class Program
 {

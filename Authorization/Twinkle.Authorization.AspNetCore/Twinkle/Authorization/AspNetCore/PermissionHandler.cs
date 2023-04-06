@@ -1,9 +1,8 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using Twinkle.Authorization.Abstractions.Permissions;
-using Twinkle.PermissionManagement.Domain.PermissionGrants;
-using Twinkle.PermissionManagement.Domain.Shared.PermissionGrants;
-using Twinkle.SeedWork.Utils;
+using Twinkle.Authorization.Abstractions;
+using Twinkle.PermissionManagement.PermissionGrants;
+using Twinkle.SeedWork;
 
 namespace Twinkle.Authorization.AspNetCore;
 

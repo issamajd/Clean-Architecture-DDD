@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace DDD.Infrastructure.EfCore.Migrations
+namespace Infrastructure.EfCore.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration

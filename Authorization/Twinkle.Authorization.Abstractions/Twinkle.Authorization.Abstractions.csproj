@@ -11,8 +11,4 @@
         <ProjectReference Include="..\..\SeedWork\Twinkle.SeedWork.Utils\Twinkle.SeedWork.Utils.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Twinkle\Authorization\Abstractions" />
-    </ItemGroup>
-
 </Project>

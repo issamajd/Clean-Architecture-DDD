@@ -1,10 +1,7 @@
 ﻿using Autofac;
-using DDD.PermissionManagement.Application.Contracts.PermissionGrants;
-using DDD.PermissionManagement.Application.Contracts.Permissions;
-using Twinkle.Authorization.Abstractions.Permissions;
-using Twinkle.PermissionManagement.Application.PermissionGrants;
-using Twinkle.PermissionManagement.Domain.PermissionGrants;
-using Twinkle.PermissionManagement.Infrastructure.EfCore.PermissionGrants;
+using Twinkle.Authorization.Abstractions;
+using Twinkle.PermissionManagement.PermissionGrants;
+using Twinkle.PermissionManagement.Permissions;
 
 namespace Twinkle.PermissionManagement;
 

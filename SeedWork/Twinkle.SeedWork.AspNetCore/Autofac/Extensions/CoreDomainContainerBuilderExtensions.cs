@@ -1,5 +1,5 @@
 using System.Reflection;
-using Twinkle.SeedWork.Domain;
+using Twinkle.SeedWork;
 using Twinkle.SeedWork.Misc;
 
 namespace Autofac.Extensions;

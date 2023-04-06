@@ -1,7 +1,6 @@
 using System.Reflection;
-using Twinkle.SeedWork.Application.Behaviors;
-using Twinkle.SeedWork.Domain;
-using Twinkle.SeedWork.Infrastructure.EfCore;
+using Twinkle.SeedWork;
+using Twinkle.SeedWork.Behaviors;
 using Twinkle.SeedWork.Misc;
 
 namespace Autofac.Extensions;

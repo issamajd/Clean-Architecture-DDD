@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Twinkle.Authorization.Abstractions.Permissions;
+using Twinkle.Authorization.Abstractions;
 
 namespace Twinkle.Authorization.AspNetCore;
 

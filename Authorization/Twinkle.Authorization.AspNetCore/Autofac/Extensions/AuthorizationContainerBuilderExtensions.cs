@@ -1,6 +1,6 @@
 ﻿using Autofac.Core;
 using Microsoft.AspNetCore.Authorization;
-using Twinkle.Authorization.Abstractions.Permissions;
+using Twinkle.Authorization.Abstractions;
 using Twinkle.Authorization.AspNetCore;
 
 namespace Autofac.Extensions;

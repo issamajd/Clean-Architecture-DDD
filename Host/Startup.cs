@@ -1,18 +1,17 @@
 using System.IdentityModel.Tokens.Jwt;
 using Autofac;
-using DDD.Authorization.Hosting;
-using DDD.Core.Application;
-using DDD.Core.Hosting;
-using DDD.Core.Hosting.Services;
-using DDD.Identity.AppUsers;
-using DDD.Identity.Module;
-using DDD.Infrastructure.EfCore;
-using DDD.PermissionManagement.Module;
+using Autofac.Extensions;
+using Infrastructure.EfCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
+using Twinkle.Identity;
+using Twinkle.Identity.AppUsers;
+using Twinkle.PermissionManagement;
+using Twinkle.SeedWork;
+using Twinkle.SeedWork.AspNetCore;
 
-namespace DDD.Host;
+namespace Host;
 
 public class Startup
 {

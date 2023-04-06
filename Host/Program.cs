@@ -1,6 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using DDD.Host;
+using Host;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()

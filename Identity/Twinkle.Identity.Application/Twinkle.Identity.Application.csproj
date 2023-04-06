@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace />
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\SeedWork\Twinkle.SeedWork.Application\Twinkle.SeedWork.Application.csproj" />
+      <ProjectReference Include="..\Twinkle.Identity.Application.Contracts\Twinkle.Identity.Application.Contracts.csproj" />
+      <ProjectReference Include="..\Twinkle.Identity.Domain\Twinkle.Identity.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Mapster" Version="7.3.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Twinkle\Identity" />
+    </ItemGroup>
+
+</Project>

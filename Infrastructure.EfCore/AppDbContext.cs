@@ -1,14 +1,14 @@
-using DDD.Identity;
-using DDD.Identity.AppUsers;
-using DDD.Identity.Customers;
-using DDD.Identity.Providers;
-using DDD.PermissionManagement.Domain.PermissionGrants;
-using DDD.PermissionManagement.Infrastructure.EfCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Twinkle.Identity;
+using Twinkle.Identity.AppUsers;
+using Twinkle.Identity.Customers;
+using Twinkle.Identity.Providers;
+using Twinkle.PermissionManagement;
+using Twinkle.PermissionManagement.PermissionGrants;
 
-namespace DDD.Infrastructure.EfCore;
+namespace Infrastructure.EfCore;
 
 public class AppDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>,
     IIdentityDbContext,
