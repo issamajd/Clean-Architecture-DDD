@@ -11,16 +11,16 @@ public class UnitOfWorkBehavior : IUnitOfWorkBehavior
 
     public async Task ExecuteAsUnitOfWorkAsync(Func<Task> func)
     {
-        await _unitOfWork.BeginAsync();
+        var saveHandle = await _unitOfWork.BeginAsync();
         await func();
-        await _unitOfWork.CompleteAsync();
+        await saveHandle.CompleteAsync();
     }
 
     public async Task<TResult> ExecuteAsUnitOfWorkAsync<TResult>(Func<Task<TResult>> func)
     {
-        await _unitOfWork.BeginAsync();
+        var saveHandle = await _unitOfWork.BeginAsync();
         var result = await func();
-        await _unitOfWork.CompleteAsync();
+        await saveHandle.CompleteAsync();
         return result;
     }
 }

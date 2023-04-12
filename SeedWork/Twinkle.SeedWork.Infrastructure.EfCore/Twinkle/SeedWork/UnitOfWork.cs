@@ -12,11 +12,12 @@ public class UnitOfWork : IUnitOfWork
         _appDbContext = dbContext;
     }
 
-    public Task BeginAsync() => BeginTransactionAsync();
-
-    public Task CompleteAsync() => CommitTransactionAsync();
-
-    public void Cancel() => RollbackTransaction();
+    public async Task<IUnitOfWorkSaveHandle> BeginAsync()
+    {
+        var saveHandle = new UnitOfWorkSaveHandle(this);
+        await BeginTransactionAsync();
+        return saveHandle;
+    }
 
     private async Task BeginTransactionAsync()
     {
@@ -59,8 +60,25 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
-    public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    private Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         return _appDbContext.SaveChangesAsync(cancellationToken);
+    }
+
+    protected class UnitOfWorkSaveHandle : IUnitOfWorkSaveHandle
+    {
+        private readonly UnitOfWork _unitOfWork;
+
+        public UnitOfWorkSaveHandle(UnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        public Task CompleteAsync() => _unitOfWork.CommitTransactionAsync();
+
+        public void Cancel() => _unitOfWork.RollbackTransaction();
+
+        public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) =>
+            _unitOfWork.SaveChangesAsync(cancellationToken);
     }
 }

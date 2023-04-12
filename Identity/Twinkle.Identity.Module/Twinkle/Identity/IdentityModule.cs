@@ -15,9 +15,9 @@ public class IdentityModule : Module
         builder.RegisterType<ProviderAppService>()
             .As<IProviderAppService>();
 
-        builder.RegisterType<CustomerRepository>()
+        builder.RegisterType<EfCoreCustomerRepository>()
             .As<ICustomerRepository>();
-        builder.RegisterType<ProviderRepository>()
+        builder.RegisterType<EfCoreProviderRepository>()
             .As<IProviderRepository>();
 
         builder.RegisterType<IdentityPermissionsProvider>()

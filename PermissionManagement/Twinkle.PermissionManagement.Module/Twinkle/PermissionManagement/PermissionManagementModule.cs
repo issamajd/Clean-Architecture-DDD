@@ -13,7 +13,7 @@ public class PermissionManagementModule : Module
             .AsSelf();
         builder.RegisterType<PermissionGrantAppService>()
             .As<IPermissionGrantAppService>();
-        builder.RegisterType<PermissionGrantRepository>()
+        builder.RegisterType<EfCorePermissionGrantRepository>()
             .As<IPermissionGrantRepository>();
         
         builder.RegisterType<PermissionManagementPermissionProvider>()

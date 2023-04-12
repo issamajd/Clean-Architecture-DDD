@@ -38,6 +38,14 @@ public class ExceptionHandlerMiddleware
         {
             // _logger.LogError($"Something went wrong: {ex}");
             await HandleExceptionAsync(httpContext, ex);
+            
+            switch (ex)
+            {
+                case BusinessException:
+                case EntityNotFoundException:
+                    return;
+                default: throw;
+            }
         }
     }
 
