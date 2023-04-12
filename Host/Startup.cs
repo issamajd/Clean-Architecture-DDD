@@ -5,6 +5,7 @@ using Infrastructure.EfCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
+using Twinkle.Auditing;
 using Twinkle.Identity;
 using Twinkle.Identity.AppUsers;
 using Twinkle.PermissionManagement;
@@ -47,6 +48,7 @@ public class Startup
         // container.AutoAddEfCoreRepositories<AppDbContext>(); if you want to automatically add repositories, you only need to reference the projects
         container.RegisterModule<IdentityModule>();
         container.RegisterModule<PermissionManagementModule>();
+        container.RegisterModule<AuditingModule>();
     }
 
     public void ConfigureSwagger(IServiceCollection services)
@@ -133,6 +135,8 @@ public class Startup
 
         app.UseAuthentication();
         app.UseAuthorization();
+        
+        app.UseAuditing();
         app.UseExceptionHandling();
         app.UseUnitOfWork();
 

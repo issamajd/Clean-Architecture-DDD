@@ -8,8 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\SeedWork\Twinkle.SeedWork.Infrastructure.EfCore\Twinkle.SeedWork.Infrastructure.EfCore.csproj" />
-      <ProjectReference Include="..\Twinkle.Auditing.Domain\Twinkle.Auditing.Domain.csproj" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
     </ItemGroup>
 
 </Project>

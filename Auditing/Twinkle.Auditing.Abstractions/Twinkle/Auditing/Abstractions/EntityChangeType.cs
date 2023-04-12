@@ -1,4 +1,4 @@
-namespace Twinkle.Auditing.AuditLogs;
+namespace Twinkle.Auditing.Abstractions;
 
 public enum EntityChangeType
 {

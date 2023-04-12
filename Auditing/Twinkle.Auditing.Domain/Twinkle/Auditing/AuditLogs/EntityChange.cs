@@ -1,17 +1,21 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using Twinkle.Auditing.Abstractions;
 using Twinkle.SeedWork;
 
 namespace Twinkle.Auditing.AuditLogs;
 
 public class EntityChange : Entity<Guid>
 {
-    [Required] public Guid AuditLogId { get; private set; }
-    [Required] public DateTime ChangeTime { get; private set; }
-    [Required] public EntityChangeType ChangeType { get; private set; }
-    [Required] public Guid EntityId { get; private set; }
-    [Required] public string EntityType { get; private set; }
-    internal ICollection<EntityPropertyChange> EntityPropertyChanges { get; }
+    public Guid AuditLogId { get; private set; }
+    public DateTime ChangeTime { get; private set; }
+    public EntityChangeType ChangeType { get; private set; }
+    public Guid EntityId { get; private set; }
+
+    [MaxLength(EntityChangeConsts.MaxEntityTypeNameLength)]
+    public string EntityType { get; private set; }
+
+    public ICollection<EntityPropertyChange> EntityPropertyChanges { get; }
 
     private EntityChange()
     {
@@ -27,5 +31,14 @@ public class EntityChange : Entity<Guid>
         EntityType = Check.NotNullOrEmpty(entityType, nameof(entityType));
 
         EntityPropertyChanges = new Collection<EntityPropertyChange>();
+    }
+
+    public void AddEntityPropertyChange(string newValue, string propertyName,
+        string propertyType,
+        string? oldValue = null)
+    {
+        var entityPropertyChange = new EntityPropertyChange(Guid.NewGuid(), Id, newValue, propertyName,
+            propertyType, oldValue);
+        EntityPropertyChanges.Add(entityPropertyChange);
     }
 }

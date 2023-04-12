@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Twinkle.Auditing;
+using Twinkle.Auditing.AuditLogs;
 using Twinkle.Identity;
 using Twinkle.Identity.AppUsers;
 using Twinkle.Identity.Customers;
@@ -12,13 +14,17 @@ namespace Infrastructure.EfCore;
 
 public class AppDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>,
     IIdentityDbContext,
-    IPermissionManagementDbContext
+    IPermissionManagementDbContext,
+    IAuditingDbContext
 {
 #pragma warning disable CS8618
     public DbSet<Provider> Providers { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<PermissionGrant> PermissionGrants { get; set; }
-
+    public DbSet<AuditLog> AuditLogs { get; set; }
+    public DbSet<AuditLogAction> AuditLogActions { get; set; }
+    public DbSet<EntityChange> EntityChanges { get; set; }
+    public DbSet<EntityPropertyChange> EntityPropertyChanges { get; set; }
     public AppDbContext(DbContextOptions options) : base(options)
     {
     }
@@ -30,6 +36,7 @@ public class AppDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
         builder.UseOpenIddict();
         builder.ConfigureIdentity();
         builder.ConfigurePermissionManagement();
+        builder.ConfigureAuditing();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

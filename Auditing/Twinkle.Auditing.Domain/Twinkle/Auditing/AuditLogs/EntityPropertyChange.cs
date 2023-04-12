@@ -5,13 +5,22 @@ namespace Twinkle.Auditing.AuditLogs;
 
 public class EntityPropertyChange : Entity<Guid>
 {
-    [Required] public Guid EntityChangeId { get; private set; }
-    public string? OldValue { get; private set; }
-    [Required] public string NewValue { get; private set; }
-    [Required] public string PropertyName { get; private set; }
-    [Required] public string PropertyType { get; private set; }
+    public Guid EntityChangeId { get; private set; }
 
-    internal EntityPropertyChange(Guid id, Guid entityChangeId, string newValue, string propertyName, string propertyType,
+    [MaxLength(EntityPropertyChangeConsts.MaxOldValueLength)]
+    public string? OldValue { get; private set; }
+
+    [MaxLength(EntityPropertyChangeConsts.MaxNewValueLength)]
+    public string NewValue { get; private set; }
+
+    [MaxLength(EntityPropertyChangeConsts.MaxPropertyNameLength)]
+    public string PropertyName { get; private set; }
+
+    [MaxLength(EntityPropertyChangeConsts.MaxPropertyTypeNameLength)]
+    public string PropertyType { get; private set; }
+
+    internal EntityPropertyChange(Guid id, Guid entityChangeId, string newValue, string propertyName,
+        string propertyType,
         string? oldValue = null) : base(id)
     {
         EntityChangeId = Check.NotNull(entityChangeId, nameof(entityChangeId));

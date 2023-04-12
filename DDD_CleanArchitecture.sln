@@ -62,6 +62,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.Auditing.Domain", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.Auditing.Infrastructure.EfCore", "Auditing\Twinkle.Auditing.Infrastructure.EfCore\Twinkle.Auditing.Infrastructure.EfCore.csproj", "{D499D6B5-C277-4995-BCD7-FB7C042A9D4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.Auditing.AspNetCore", "Auditing\Twinkle.Auditing.AspNetCore\Twinkle.Auditing.AspNetCore.csproj", "{BCF20B53-C4D1-4AFA-AD7D-3CC04AA25EE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.Auditing.Abstractions", "Auditing\Twinkle.Auditing.Abstractions\Twinkle.Auditing.Abstractions.csproj", "{FE4A8642-A074-451B-8E1E-1175A33ADFC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.Auditing.Domain.Shared", "Auditing\Twinkle.Auditing.Domain.Shared\Twinkle.Auditing.Domain.Shared.csproj", "{98AE121B-ECD6-4839-84F3-54F338421D7A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -172,6 +178,18 @@ Global
 		{D499D6B5-C277-4995-BCD7-FB7C042A9D4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D499D6B5-C277-4995-BCD7-FB7C042A9D4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D499D6B5-C277-4995-BCD7-FB7C042A9D4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCF20B53-C4D1-4AFA-AD7D-3CC04AA25EE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCF20B53-C4D1-4AFA-AD7D-3CC04AA25EE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCF20B53-C4D1-4AFA-AD7D-3CC04AA25EE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCF20B53-C4D1-4AFA-AD7D-3CC04AA25EE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE4A8642-A074-451B-8E1E-1175A33ADFC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE4A8642-A074-451B-8E1E-1175A33ADFC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE4A8642-A074-451B-8E1E-1175A33ADFC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE4A8642-A074-451B-8E1E-1175A33ADFC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98AE121B-ECD6-4839-84F3-54F338421D7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98AE121B-ECD6-4839-84F3-54F338421D7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98AE121B-ECD6-4839-84F3-54F338421D7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98AE121B-ECD6-4839-84F3-54F338421D7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{937A33DF-F809-4831-9D58-BA3F998208E9} = {629D94A3-D0CC-4ABE-AF59-7C75567781DC}
@@ -198,5 +216,8 @@ Global
 		{5F1F31ED-C10C-4FA5-9128-6EC345C8FD2C} = {B992E8D6-AE5D-42D7-AE72-A6EDF363271F}
 		{0903AE63-D83B-440F-8E01-66C5975E3C04} = {B992E8D6-AE5D-42D7-AE72-A6EDF363271F}
 		{D499D6B5-C277-4995-BCD7-FB7C042A9D4A} = {B992E8D6-AE5D-42D7-AE72-A6EDF363271F}
+		{BCF20B53-C4D1-4AFA-AD7D-3CC04AA25EE0} = {B992E8D6-AE5D-42D7-AE72-A6EDF363271F}
+		{FE4A8642-A074-451B-8E1E-1175A33ADFC8} = {B992E8D6-AE5D-42D7-AE72-A6EDF363271F}
+		{98AE121B-ECD6-4839-84F3-54F338421D7A} = {B992E8D6-AE5D-42D7-AE72-A6EDF363271F}
 	EndGlobalSection
 EndGlobal

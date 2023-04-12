@@ -5,24 +5,29 @@ namespace Twinkle.Auditing.AuditLogs;
 
 public class AuditLogAction : Entity<Guid>
 {
-    [Required] public Guid AuditLogId { get; private set; }
-    [Required] public string ControllerName { get; private set; }
-    [Required] public string MethodName { get; private set; }
-    [Required] public string Parameters { get; private set; }
-    [Required] public DateTime ExecutionTime { get; private set; }
-    public ulong ExecutionDuration { get; internal set; }
+    public Guid AuditLogId { get; private set; }
+
+    [MaxLength(AuditLogActionConsts.MaxControllerNameLength)]
+    public string? ControllerName { get; private set; }
+
+    [MaxLength(AuditLogActionConsts.MaxMethodNameLength)]
+    public string? ActionName { get; private set; }
+
+    [MaxLength(AuditLogActionConsts.MaxParametersLength)]
+    public string? Parameters { get; private set; }
+
 
     private AuditLogAction()
     {
     }
-    
-    internal AuditLogAction(Guid id,Guid auditLogId, string controllerName, string methodName, string parameters,
-        DateTime executionTime) : base(id)
+
+    internal AuditLogAction(Guid id, Guid auditLogId, string? controllerName = null, string? actionName = null,
+        string? parameters = null)
+        : base(id)
     {
-        ControllerName = Check.NotNullOrEmpty(controllerName,nameof(controllerName));
-        AuditLogId = Check.NotNull(auditLogId,nameof(auditLogId));
-        MethodName = Check.NotNullOrEmpty(methodName,nameof(methodName));
-        Parameters = Check.NotNullOrEmpty(parameters,nameof(parameters));
-        ExecutionTime = Check.NotNull(executionTime,nameof(executionTime));
+        AuditLogId = auditLogId;
+        ControllerName = controllerName;
+        ActionName = actionName;
+        Parameters = parameters;
     }
 }

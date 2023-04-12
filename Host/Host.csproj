@@ -8,6 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Auditing\Twinkle.Auditing.AspNetCore\Twinkle.Auditing.AspNetCore.csproj" />
+      <ProjectReference Include="..\Auditing\Twinkle.Auditing.Module\Twinkle.Auditing.Module.csproj" />
       <ProjectReference Include="..\Identity\Twinkle.Identity.Module\Twinkle.Identity.Module.csproj" />
       <ProjectReference Include="..\Infrastructure.EfCore\Infrastructure.EfCore.csproj" />
       <ProjectReference Include="..\PermissionManagement\Twinkle.PermissionManagement.Module\Twinkle.PermissionManagement.Module.csproj" />
