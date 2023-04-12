@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Twinkle.Auditing.Abstractions;
+namespace Twinkle.SeedWork.Auditing;
 
 public class DefaultAuditLogStore : IAuditLogStore
 {

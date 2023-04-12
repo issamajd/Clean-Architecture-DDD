@@ -1,4 +1,4 @@
-using Twinkle.Auditing.Abstractions;
+using Twinkle.SeedWork.Auditing;
 
 namespace Twinkle.Auditing.AuditLogs;
 

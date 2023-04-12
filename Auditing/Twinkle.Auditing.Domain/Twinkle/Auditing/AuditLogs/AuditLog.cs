@@ -1,8 +1,8 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
-using Twinkle.Auditing.Abstractions;
 using Twinkle.SeedWork;
+using Twinkle.SeedWork.Auditing;
 
 namespace Twinkle.Auditing.AuditLogs;
 

@@ -8,8 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\SeedWork\Twinkle.SeedWork.Auditing\Twinkle.SeedWork.Auditing.csproj" />
         <ProjectReference Include="..\..\SeedWork\Twinkle.SeedWork.Domain\Twinkle.SeedWork.Domain.csproj" />
-        <ProjectReference Include="..\Twinkle.Auditing.Abstractions\Twinkle.Auditing.Abstractions.csproj" />
         <ProjectReference Include="..\Twinkle.Auditing.Domain.Shared\Twinkle.Auditing.Domain.Shared.csproj" />
     </ItemGroup>
 

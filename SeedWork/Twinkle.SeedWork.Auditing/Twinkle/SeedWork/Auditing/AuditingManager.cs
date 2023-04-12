@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace Twinkle.Auditing.Abstractions;
+namespace Twinkle.SeedWork.Auditing;
 
 public class AuditingManager : IAuditingManager
 {

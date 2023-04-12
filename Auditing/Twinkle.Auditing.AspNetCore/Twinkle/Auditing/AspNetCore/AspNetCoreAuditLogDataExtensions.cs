@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Net.Http.Headers;
-using Twinkle.Auditing.Abstractions;
+using Twinkle.SeedWork.Auditing;
 
 namespace Twinkle.Auditing.AspNetCore;
 

@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Twinkle.Auditing.Abstractions\Twinkle.Auditing.Abstractions.csproj" />
+      <ProjectReference Include="..\..\SeedWork\Twinkle.SeedWork.Auditing\Twinkle.SeedWork.Auditing.csproj" />
       <ProjectReference Include="..\Twinkle.Auditing.Domain\Twinkle.Auditing.Domain.csproj" />
     </ItemGroup>
 

@@ -1,4 +1,4 @@
-namespace Twinkle.Auditing.Abstractions;
+namespace Twinkle.SeedWork.Auditing;
 
 public class EntityPropertyChangeData
 {

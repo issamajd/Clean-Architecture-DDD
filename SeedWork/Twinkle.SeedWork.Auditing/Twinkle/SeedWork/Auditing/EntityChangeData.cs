@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 
-namespace Twinkle.Auditing.Abstractions;
+namespace Twinkle.SeedWork.Auditing;
 
 public class EntityChangeData
 {

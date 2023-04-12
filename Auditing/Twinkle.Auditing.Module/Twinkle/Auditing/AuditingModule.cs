@@ -1,6 +1,6 @@
 ﻿using Autofac;
-using Twinkle.Auditing.Abstractions;
 using Twinkle.Auditing.AuditLogs;
+using Twinkle.SeedWork.Auditing;
 
 namespace Twinkle.Auditing;
 
