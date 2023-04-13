@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using Twinkle.SeedWork;
 
 namespace Twinkle.Authorization.Abstractions;
@@ -33,13 +32,13 @@ public class PermissionGroup
     /// <summary>
     /// Get all permissions with their descendants 
     /// </summary>
-    /// <returns>Immutable List of <see cref="Permission"/></returns>
-    public IImmutableList<Permission> GetPermissionsWithDescendants() =>
-        Permissions.Concat(Permissions.SelectMany(permission => permission.GetDescendants())).ToImmutableList();
+    /// <returns>Enumerable of <see cref="Permission"/></returns>
+    public IEnumerable<Permission> GetPermissionsWithDescendants() =>
+        Permissions.Concat(Permissions.SelectMany(permission => permission.GetDescendants()));
+
     /// <summary>
     /// Get current group permissions 
     /// </summary>
-    /// <returns>Immutable List of <see cref="Permission"/></returns>
-    public IImmutableList<Permission> GetPermissions() => Permissions.ToImmutableList();
-    
+    /// <returns>Enumerable of <see cref="Permission"/></returns>
+    public IEnumerable<Permission> GetPermissions() => Permissions;
 }

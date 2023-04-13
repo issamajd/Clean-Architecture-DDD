@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using Twinkle.SeedWork;
 
 namespace Twinkle.Authorization.Abstractions;
@@ -29,10 +28,10 @@ public class Permission
     }
 
     /// <summary>
-    /// Get current permission descendants immutable list
+    /// Get current permission descendants 
     /// </summary>
-    /// <returns>Immutable list of <see cref="Permission"/></returns>
-    public IImmutableList<Permission> GetDescendants()
+    /// <returns>Enumerable of <see cref="Permission"/></returns>
+    public IEnumerable<Permission> GetDescendants()
     {
         var descendants = new List<Permission>(Children);
         var visited = new HashSet<string>();
@@ -49,12 +48,12 @@ public class Permission
             }
         } while (descendants.Count > currentDescendantsCount);
 
-        return descendants.ToImmutableList();
+        return descendants;
     }
 
     /// <summary>
-    /// return the direct children as immutable list
+    /// return the direct children 
     /// </summary>
-    /// <returns>Immutable list of <see cref="Permission"/></returns>
-    public IImmutableList<Permission> GetChildren() => Children.ToImmutableList();
+    /// <returns>Enumerable of <see cref="Permission"/></returns>
+    public IEnumerable<Permission> GetChildren() => Children;
 }

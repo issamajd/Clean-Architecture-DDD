@@ -1,5 +1,3 @@
-using System.Collections.Immutable;
-
 namespace Twinkle.Authorization.Abstractions;
 
 public interface IPermissionStore
@@ -19,10 +17,10 @@ public interface IPermissionStore
     public void RemoveGroup(string name);
 
     /// <summary>
-    /// return list of the groups stored
+    /// return the groups stored
     /// </summary>
-    /// <returns>Immutable list of <see cref="Permission"/></returns>
-    public IImmutableList<PermissionGroup> GetGroups();
+    /// <returns>Enumerable of <see cref="Permission"/></returns>
+    public IEnumerable<PermissionGroup> GetGroups();
 
     /// <summary>
     /// try to find the required permission by the name provided
@@ -32,8 +30,8 @@ public interface IPermissionStore
     public Permission? FindPermissionByName(string permissionName);
 
     /// <summary>
-    /// Return all permissions in one list
+    /// Return all permissions
     /// </summary>
-    /// <returns>a list of permissions</returns>
-    public IImmutableList<Permission> GetList();
+    /// <returns>Enumerable of permissions</returns>
+    public IEnumerable<Permission> GetPermissions();
 }
