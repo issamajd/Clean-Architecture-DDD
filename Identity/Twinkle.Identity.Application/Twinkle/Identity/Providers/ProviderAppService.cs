@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Twinkle.Identity.AppUsers;
 using Twinkle.SeedWork;
+using Twinkle.SeedWork.Security;
 
 namespace Twinkle.Identity.Providers;
 

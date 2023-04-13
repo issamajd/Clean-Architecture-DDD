@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\SeedWork\Twinkle.SeedWork.Application\Twinkle.SeedWork.Application.csproj" />
+      <ProjectReference Include="..\..\SeedWork\Twinkle.SeedWork.Security\Twinkle.SeedWork.Security.csproj" />
       <ProjectReference Include="..\Twinkle.Identity.Application.Contracts\Twinkle.Identity.Application.Contracts.csproj" />
       <ProjectReference Include="..\Twinkle.Identity.Domain\Twinkle.Identity.Domain.csproj" />
     </ItemGroup>

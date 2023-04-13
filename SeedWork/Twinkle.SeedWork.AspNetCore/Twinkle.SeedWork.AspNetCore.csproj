@@ -17,6 +17,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Twinkle.SeedWork.Application\Twinkle.SeedWork.Application.csproj" />
       <ProjectReference Include="..\Twinkle.SeedWork.Infrastructure.EfCore\Twinkle.SeedWork.Infrastructure.EfCore.csproj" />
+      <ProjectReference Include="..\Twinkle.SeedWork.Security\Twinkle.SeedWork.Security.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-namespace Twinkle.SeedWork;
+namespace Twinkle.SeedWork.Security;
 
 public interface IIdentityService<out TKey>
 {

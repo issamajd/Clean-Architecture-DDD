@@ -68,6 +68,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.Auditing.Domain.Sha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.SeedWork.Auditing", "SeedWork\Twinkle.SeedWork.Auditing\Twinkle.SeedWork.Auditing.csproj", "{2486AA4D-846B-46AF-B5D4-2D42785D24D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.SeedWork.Security", "SeedWork\Twinkle.SeedWork.Security\Twinkle.SeedWork.Security.csproj", "{DD2C9152-3B4E-4E61-8976-E938035B77DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -190,6 +192,10 @@ Global
 		{2486AA4D-846B-46AF-B5D4-2D42785D24D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2486AA4D-846B-46AF-B5D4-2D42785D24D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2486AA4D-846B-46AF-B5D4-2D42785D24D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD2C9152-3B4E-4E61-8976-E938035B77DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD2C9152-3B4E-4E61-8976-E938035B77DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD2C9152-3B4E-4E61-8976-E938035B77DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD2C9152-3B4E-4E61-8976-E938035B77DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{937A33DF-F809-4831-9D58-BA3F998208E9} = {629D94A3-D0CC-4ABE-AF59-7C75567781DC}
@@ -219,5 +225,6 @@ Global
 		{BCF20B53-C4D1-4AFA-AD7D-3CC04AA25EE0} = {B992E8D6-AE5D-42D7-AE72-A6EDF363271F}
 		{98AE121B-ECD6-4839-84F3-54F338421D7A} = {B992E8D6-AE5D-42D7-AE72-A6EDF363271F}
 		{2486AA4D-846B-46AF-B5D4-2D42785D24D3} = {3294E5E1-E1E7-4696-BACE-31BBC7F03B52}
+		{DD2C9152-3B4E-4E61-8976-E938035B77DD} = {3294E5E1-E1E7-4696-BACE-31BBC7F03B52}
 	EndGlobalSection
 EndGlobal
