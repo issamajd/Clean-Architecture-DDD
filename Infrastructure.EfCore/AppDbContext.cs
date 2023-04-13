@@ -9,6 +9,7 @@ using Twinkle.Identity.Customers;
 using Twinkle.Identity.Providers;
 using Twinkle.PermissionManagement;
 using Twinkle.PermissionManagement.PermissionGrants;
+using Twinkle.SeedWork.Interceptors;
 
 namespace Infrastructure.EfCore;
 
@@ -44,7 +45,8 @@ public class AppDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
         var connectionString = BuildConfiguration().GetConnectionString("Default")
                                ?? throw new InvalidOperationException("Connection string not provided");
         var serverVersion = ServerVersion.AutoDetect(connectionString);
-        optionsBuilder.UseMySql(connectionString, serverVersion);
+        optionsBuilder.UseMySql(connectionString, serverVersion)
+            .AddInterceptors(new UpdateAuditableEntriesInterceptor());
     }
 
     private static IConfigurationRoot BuildConfiguration()

@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Twinkle.SeedWork.Auditing\Twinkle.SeedWork.Auditing.csproj" />
       <ProjectReference Include="..\Twinkle.SeedWork.Utils\Twinkle.SeedWork.Utils.csproj" />
     </ItemGroup>
 
