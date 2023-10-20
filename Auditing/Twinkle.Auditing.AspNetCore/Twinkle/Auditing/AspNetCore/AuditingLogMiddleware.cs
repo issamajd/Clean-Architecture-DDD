@@ -10,8 +10,7 @@ public class AuditingLogMiddleware
     private readonly IAuditingManager _auditingManager;
 
     public AuditingLogMiddleware(RequestDelegate next,
-        IAuditingManager auditingManager
-    )
+        IAuditingManager auditingManager)
     {
         _next = next;
         _auditingManager = auditingManager;

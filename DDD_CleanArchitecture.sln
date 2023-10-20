@@ -70,6 +70,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.SeedWork.Auditing",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.SeedWork.Security", "SeedWork\Twinkle.SeedWork.Security\Twinkle.SeedWork.Security.csproj", "{DD2C9152-3B4E-4E61-8976-E938035B77DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.SeedWork.Localization.Abstractions", "SeedWork\Twinkle.SeedWork.Localization.Abstractions\Twinkle.SeedWork.Localization.Abstractions.csproj", "{B633B849-6723-4E83-BE73-3FCC55C85B83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twinkle.SeedWork.Localization.AspNetCore", "SeedWork\Twinkle.SeedWork.Localization.AspNetCore\Twinkle.SeedWork.Localization.AspNetCore.csproj", "{0C6FFC0F-56BF-424A-8B93-C8C2DEB5D4E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -196,6 +200,14 @@ Global
 		{DD2C9152-3B4E-4E61-8976-E938035B77DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD2C9152-3B4E-4E61-8976-E938035B77DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD2C9152-3B4E-4E61-8976-E938035B77DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B633B849-6723-4E83-BE73-3FCC55C85B83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B633B849-6723-4E83-BE73-3FCC55C85B83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B633B849-6723-4E83-BE73-3FCC55C85B83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B633B849-6723-4E83-BE73-3FCC55C85B83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C6FFC0F-56BF-424A-8B93-C8C2DEB5D4E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C6FFC0F-56BF-424A-8B93-C8C2DEB5D4E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C6FFC0F-56BF-424A-8B93-C8C2DEB5D4E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C6FFC0F-56BF-424A-8B93-C8C2DEB5D4E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{937A33DF-F809-4831-9D58-BA3F998208E9} = {629D94A3-D0CC-4ABE-AF59-7C75567781DC}
@@ -226,5 +238,7 @@ Global
 		{98AE121B-ECD6-4839-84F3-54F338421D7A} = {B992E8D6-AE5D-42D7-AE72-A6EDF363271F}
 		{2486AA4D-846B-46AF-B5D4-2D42785D24D3} = {3294E5E1-E1E7-4696-BACE-31BBC7F03B52}
 		{DD2C9152-3B4E-4E61-8976-E938035B77DD} = {3294E5E1-E1E7-4696-BACE-31BBC7F03B52}
+		{B633B849-6723-4E83-BE73-3FCC55C85B83} = {3294E5E1-E1E7-4696-BACE-31BBC7F03B52}
+		{0C6FFC0F-56BF-424A-8B93-C8C2DEB5D4E9} = {3294E5E1-E1E7-4696-BACE-31BBC7F03B52}
 	EndGlobalSection
 EndGlobal

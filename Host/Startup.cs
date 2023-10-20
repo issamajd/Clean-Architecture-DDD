@@ -9,8 +9,8 @@ using Twinkle.Auditing;
 using Twinkle.Identity;
 using Twinkle.Identity.AppUsers;
 using Twinkle.PermissionManagement;
-using Twinkle.SeedWork;
 using Twinkle.SeedWork.AspNetCore;
+using Twinkle.SeedWork.Localization.Abstractions;
 using Twinkle.SeedWork.Security;
 
 namespace Host;
@@ -37,6 +37,11 @@ public class Startup
         services.AddHttpContextAccessor();
 
         services.AddEndpointsApiExplorer();
+        services.AddJsonLocalization(options =>
+        {
+            options.ResourcesPath = "Resources";
+        });
+        
         ConfigureSwagger(services);
     }
 
@@ -52,6 +57,14 @@ public class Startup
         container.RegisterModule<AuditingModule>();
     }
 
+    public void ConfigureLanguages(IServiceCollection services)
+    {
+        services.Configure<TwinkleLocalizationOptions>(options =>
+        {   
+            options.AddLanguage("en");
+            options.AddLanguage("ar");
+        });
+    }
     public void ConfigureSwagger(IServiceCollection services)
     {
         services.AddSwaggerGen(option =>

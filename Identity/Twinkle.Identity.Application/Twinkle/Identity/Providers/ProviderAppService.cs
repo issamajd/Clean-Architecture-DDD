@@ -36,7 +36,7 @@ public class ProviderAppService : ApplicationService, IProviderAppService
         var user = new AppUser(id: Guid.NewGuid(),
             username: registerProviderAccountDto.Username,
             email: registerProviderAccountDto.Email);
-
+            
         //TODO move this logic to ProviderManager
         var result = await _userManager.CreateAsync(user, registerProviderAccountDto.Password);
         if (!result.Succeeded)
